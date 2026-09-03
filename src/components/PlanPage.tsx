@@ -8,6 +8,7 @@ import type { AppState } from '../storage'
 import { ROUTE_META } from '../router'
 import { ProgressRing } from './ProgressRing'
 import { SessionItem } from './SessionItem'
+import { Timeline } from './Timeline'
 
 interface PlanPageProps {
   state: AppState
@@ -30,6 +31,7 @@ export function PlanPage({ state, onToggleSession, onAddCustom, onDeleteCustom }
         Ритм: <strong>пн–пт — одно занятие 60 минут</strong>, суббота — самопроверка, воскресенье — отдых. Основной план — недели 1–12 (02.09 → 22.11), недели
         13–23 — резерв. Неделя сворачивается, когда все её занятия отмечены. <a href={ROUTE_META.home.hash}>Прогресс и «Сегодня» — на обзоре</a>.
       </p>
+      <Timeline state={state} />
       {BLOCKS.map((block) => (
         <BlockSection
           key={block.id}

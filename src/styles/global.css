@@ -18,6 +18,8 @@
 @import './components/difference.css';
 @import './components/format-card.css';
 @import './components/backup.css';
+@import './components/timeline.css';
+@import './components/milestone-legend.css';
 @import './components/plan-page.css';
 @import './components/week.css';
 @import './components/session.css';
