@@ -13,6 +13,7 @@ import {
 } from './storage'
 import type { TheoryState } from './data/theory'
 import { AppNav } from './components/AppNav'
+import { OverallProgress } from './components/OverallProgress'
 import { HomePage } from './components/HomePage'
 import { PlanPage } from './components/PlanPage'
 import { ChecksPage } from './components/ChecksPage'
@@ -164,6 +165,7 @@ export default function App() {
         )}
         {route === 'theory' && <TheoryPage state={state} onSetTheory={setTheory} />}
       </div>
+      {route !== 'home' && <OverallProgress state={state} />}
       <footer className="site-footer">
         <p>
           План — повторение тем 1–24 первого семестра «Математики» (РУТ (МИИТ), программа 2026) до возвращения из академотпуска 9 февраля 2027. Порог любой
