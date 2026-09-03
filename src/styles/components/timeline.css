@@ -49,7 +49,8 @@
   inset-inline-start: 50%;
   inset-block-start: 1.125rem;
   width: 1px;
-  height: 6.5rem;
+  /* Высота засечки следует числу полос: строка 1.625rem + промежуток 0.5rem */
+  height: calc(var(--timeline-rows, 3) * 2.125rem + 0.5rem);
   background: var(--color-border);
 }
 
@@ -66,7 +67,7 @@
   inset-inline-start: 100%;
   inset-block-start: 2.375rem;
   width: 2px;
-  height: 5.25rem;
+  height: calc(var(--timeline-rows, 3) * 2.125rem - 0.75rem);
   background: var(--color-text);
 }
 
@@ -129,7 +130,7 @@
 
 .timeline__month--today::before {
   inset-block-start: 2.375rem;
-  height: 5.25rem;
+  height: calc(var(--timeline-rows, 3) * 2.125rem - 0.75rem);
   background: var(--color-success);
 }
 

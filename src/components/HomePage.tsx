@@ -5,6 +5,7 @@ import { DifferenceSection } from './DifferenceSection'
 import { FormatCard } from './FormatCard'
 import { Hero } from './Hero'
 import { RepeatList } from './RepeatList'
+import { Timeline } from './Timeline'
 import { TodayCard } from './TodayCard'
 
 interface HomePageProps {
@@ -23,6 +24,7 @@ export function HomePage({ state, onToggleSession, onToggleRepeat, onExport, onI
         <TodayCard state={state} onToggleSession={onToggleSession} />
         <RepeatList state={state} onToggleRepeat={onToggleRepeat} />
         <BlockCards state={state} />
+        <Timeline state={state} />
         <DifferenceSection />
         <FormatCard />
         <BackupSection onExport={onExport} onImport={onImport} />

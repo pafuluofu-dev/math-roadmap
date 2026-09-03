@@ -1,4 +1,4 @@
-import { Fragment } from 'react'
+import { Fragment, type CSSProperties } from 'react'
 import { CHECKS } from '../data/checks'
 import { BLOCKS, CORE_END, RETURN_DATE, WEEKS, type BlockId } from '../data/plan'
 import { fmtDate, MONTHS_SHORT, parseISO, todayISO } from '../dates'
@@ -64,7 +64,7 @@ export function Timeline({ state }: TimelineProps) {
       </p>
 
       <div className="timeline__scroll">
-        <div className="timeline__chart" aria-hidden="true">
+        <div className="timeline__chart" style={{ '--timeline-rows': BLOCKS.length } as CSSProperties} aria-hidden="true">
           <div className="timeline__months">
             {months.map((month) => (
               <span className="timeline__month" key={`${month.label}-${month.x}`} style={{ insetInlineStart: `${month.x}%` }}>
