@@ -1,9 +1,13 @@
-import { useState } from 'react'
+import { lazy, Suspense, useState } from 'react'
 import { CHECKS, SCORING_RULE, type Check } from '../data/checks'
 import { PASS_THRESHOLD } from '../data/plan'
+import { testsFor } from '../data/testBank'
 import { fmtDateYear } from '../dates'
 import type { AppState, CheckResult } from '../storage'
 import { ErrorLog } from './ErrorLog'
+
+// Список заданий тянет KaTeX (~300 КБ) — грузим отложенно, форма результата и журнал ошибок его не ждут
+const TestTasksList = lazy(() => import('./TestTasksList').then((module) => ({ default: module.TestTasksList })))
 
 interface ChecksPageProps {
   state: AppState
@@ -21,8 +25,8 @@ export function ChecksPage({ state, onSaveResult, onClearResult, onAddError, onT
         <p className="eyebrow">Суббота — самопроверка · порог {PASS_THRESHOLD} %</p>
         <h1 className="page-head__title">Проверки и пробные экзамены</h1>
         <p className="page-head__lead">
-          Результат записывается после каждой проверки: баллы 0–100 и что не получилось. Темы проверок ниже {PASS_THRESHOLD} % — кандидаты во «второй круг»
-          резерва.
+          У каждой проверки есть задания с ответами: сначала решаете, потом открываете ответ и сами ставите баллы 0–100. Автопроверки нет — она
+          ненадёжна для математики. Темы проверок ниже {PASS_THRESHOLD} % — кандидаты во «второй круг» резерва.
         </p>
       </header>
       <section className="page-section" aria-labelledby="checks-title">
@@ -47,6 +51,30 @@ export function ChecksPage({ state, onSaveResult, onClearResult, onAddError, onT
       </section>
       <ErrorLog state={state} onAddError={onAddError} onToggleRepeat={onToggleRepeat} onDeleteError={onDeleteError} />
     </main>
+  )
+}
+
+/** Задания проверки из банка: свёрнуты, ответ у каждого — под своей кнопкой. Ничего не сохраняет */
+function TestTasks({ checkId }: { checkId: string }) {
+  const items = testsFor(checkId)
+  // Не монтируем список (и не тянем KaTeX), пока задания не раскрыли
+  const [opened, setOpened] = useState(false)
+  if (items.length === 0) return null
+  const problems = items.filter((item) => item.kind === 'problem').length
+  const theory = items.length - problems
+
+  return (
+    <details className="check-card__tasks-fold" onToggle={(event) => setOpened(event.currentTarget.open)}>
+      <summary className="check-card__form-summary">
+        Открыть задания · {problems}
+        {theory > 0 && ` + ${theory} теории`}
+      </summary>
+      {opened && (
+        <Suspense fallback={<p className="test-item__no-key">Загружаю задания…</p>}>
+          <TestTasksList items={items} />
+        </Suspense>
+      )}
+    </details>
   )
 }
 
@@ -82,6 +110,7 @@ function CheckCard({ check, result, onSaveResult, onClearResult }: CheckCardProp
         <span className={`badge ${statusModifier}`}>{status}</span>
       </h3>
       <p className="check-card__scope">{check.scope}</p>
+      <TestTasks checkId={check.id} />
       {result && (
         <p className="check-card__result">
           <span className="check-card__score">

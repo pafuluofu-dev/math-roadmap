@@ -1,0 +1,166 @@
+.formulas-page {
+  display: grid;
+  gap: var(--spacing-xs);
+}
+
+.formulas-search {
+  display: grid;
+  gap: var(--spacing-xs);
+  margin-block-end: var(--spacing-md);
+}
+
+.formulas-search__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.formulas-search__input {
+  min-height: 2.75rem;
+  width: 100%;
+  padding: var(--spacing-xs) 0.75rem;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-base);
+}
+
+/* Кнопки-номера тем: сетка, чтобы 24 штуки не превращались в бесконечную строку */
+.formulas-topics__list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(2.75rem, 1fr));
+  gap: var(--spacing-xs);
+  list-style: none;
+}
+
+.formulas-topics__button {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 2.75rem;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), background-color var(--transition-fast);
+}
+
+.formulas-topics__button:hover {
+  border-color: var(--color-text-muted);
+}
+
+.formulas-list {
+  display: grid;
+  gap: var(--spacing-sm);
+}
+
+.formulas-empty {
+  color: var(--color-text-muted);
+}
+
+/* Карточка темы — та же форма, что у недели на плане */
+.formula-topic {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  /* Якорь под липкой шапкой: при переходе заголовок не прячется за навигацией */
+  scroll-margin-block-start: 4rem;
+}
+
+.formula-topic__summary {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: var(--spacing-xs) var(--spacing-sm);
+  min-height: 2.75rem;
+  padding: 0.625rem 0.875rem;
+  cursor: pointer;
+  user-select: none;
+}
+
+.formula-topic__summary::marker {
+  color: var(--color-text-muted);
+}
+
+.formula-topic__number {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-sm);
+  color: var(--color-block-a-text);
+}
+
+.formula-topic__title {
+  flex: 1 1 14rem;
+  font-size: var(--font-size-md);
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.formula-topic__count {
+  font-family: var(--font-family-mono);
+  font-variant-numeric: tabular-nums;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-muted);
+}
+
+.formula-list {
+  list-style: none;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.formula-group {
+  padding: 0.5rem 0.875rem 0.125rem;
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+}
+
+.formula-item {
+  display: grid;
+  gap: 0.125rem;
+  padding: 0.5rem 0.875rem;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.formula-group + .formula-item,
+.formula-item:first-child {
+  border-block-start: 0;
+}
+
+.formula-item__name {
+  font-size: var(--font-size-md);
+  line-height: 1.4;
+}
+
+.formula-item__note {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+@media (min-width: 48rem) {
+  .formulas-topics__list {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  /* Подпись слева, формула справа — читается как таблица */
+  .formula-item {
+    grid-template-columns: minmax(10rem, 2fr) 3fr;
+    column-gap: var(--spacing-md);
+    align-items: center;
+  }
+
+  .formula-item__note {
+    grid-column: 1 / -1;
+  }
+
+  /* У чисто текстового пункта формулы нет — пусть занимает всю ширину */
+  .formula-item__name:only-child {
+    grid-column: 1 / -1;
+  }
+}

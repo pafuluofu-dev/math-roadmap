@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { addDays, todayISO } from './dates'
 import {
   EMPTY_STATE,
@@ -19,6 +19,9 @@ import { PlanPage } from './components/PlanPage'
 import { ChecksPage } from './components/ChecksPage'
 import { TheoryPage } from './components/TheoryPage'
 import { ROUTE_META, useRoute } from './router'
+
+// KaTeX весит ~300 КБ — тянем его только на страницы с формулами, чтобы галочки на плане открывались мгновенно
+const FormulasPage = lazy(() => import('./components/FormulasPage').then((module) => ({ default: module.FormulasPage })))
 
 export default function App() {
   const [state, setState] = useState<AppState>(loadState)
@@ -164,6 +167,11 @@ export default function App() {
           />
         )}
         {route === 'theory' && <TheoryPage state={state} onSetTheory={setTheory} />}
+        {route === 'formulas' && (
+          <Suspense fallback={<p className="page-loading">Загружаю формулы…</p>}>
+            <FormulasPage />
+          </Suspense>
+        )}
       </div>
       {route !== 'home' && <OverallProgress state={state} />}
       <footer className="site-footer">
