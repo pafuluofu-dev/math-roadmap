@@ -99,6 +99,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [1, 2],
         questions: ['понятие матрицы, виды матриц', 'операции над матрицами, cвойства операций над матрицами', 'определитель квадратной матрицы', 'минор и алгебраическое дополнение элемента определителя', 'вычисление определителей'],
+        links: [{ label: 'YouTube · Математик МГУ: матрицы и определители', url: 'https://www.youtube.com/watch?v=S6yg8N0VWAY' }, { label: 'YouTube · Валерий Волков: 5 способов определителя', url: 'https://www.youtube.com/watch?v=-7Muy9rU7wo' }],
       },
       {
         id: 'w01-d5',
@@ -108,6 +109,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [2],
         questions: ['понятие определителя, свойства определителей'],
+        links: [{ label: 'YouTube · Валерий Волков: определитель 4-го порядка', url: 'https://www.youtube.com/watch?v=w_MxAwR3I8g' }, { label: 'YouTube · Видеокурсы DA VINCI: свойства определителей', url: 'https://www.youtube.com/watch?v=d6fJbE-eTHU' }],
       },
       {
         id: 'w01-d6',
@@ -117,6 +119,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [3],
         questions: ['обратная матрица и её свойства'],
+        links: [{ label: 'YouTube · Валерий Волков: обратная матрица (2 способа)', url: 'https://www.youtube.com/watch?v=6Osv_KleQr0' }, { label: 'YouTube · Валерий Волков: матричный метод решения СЛАУ', url: 'https://www.youtube.com/watch?v=AWrczMDGTac' }],
       },
     ],
   },
@@ -135,6 +138,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [4],
         questions: ['ранг матрицы', 'элементарные преобразования матриц'],
+        links: [{ label: 'YouTube · Валерий Волков: ранг матрицы', url: 'https://www.youtube.com/watch?v=Uy-bqENs1pI' }, { label: 'YouTube · Валерий Волков: матричные уравнения', url: 'https://www.youtube.com/watch?v=gPhhN2mmggg' }],
       },
       {
         id: 'w02-d2',
@@ -144,6 +148,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [5],
         questions: ['понятие векторы, действия над векторами', 'линейная зависимость векторов', 'базис на прямой, на плоскости и в пространстве', 'координаты вектора в заданном базисе', 'линейные операции над векторами в координатной форме'],
+        links: [{ label: 'YouTube · Дистанционные занятия МФТИ: линейная зависимость, базис', url: 'https://www.youtube.com/watch?v=OnlyCNrSH3I' }, { label: 'YouTube · Валерий Волков: разложение по базису', url: 'https://www.youtube.com/watch?v=2JCnorkoPOw' }],
       },
       {
         id: 'w02-d3',
@@ -153,6 +158,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [6],
         questions: ['скалярное произведение двух векторов, его алгебраические свойства', 'применение скалярного произведения к решению задач'],
+        links: [{ label: 'YouTube · Валерий Волков: скалярное произведение', url: 'https://www.youtube.com/watch?v=HmtZxlcQRJ8' }, { label: 'YouTube · Mathematical Center in Akademgorodok: скалярное произведение, свойства', url: 'https://www.youtube.com/watch?v=nrtJy8D_mkg' }, { label: 'YouTube · Ульяна Половинкина: угол между векторами и проекция на примерах', url: 'https://www.youtube.com/watch?v=fTSpT35ryNM' }],
       },
       {
         id: 'w02-d4',
@@ -162,6 +168,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [7],
         questions: ['векторное произведение двух векторов, его геометрический и механический смысл алгебраические свойства векторного произведения', 'вычисление векторного произведения в ортонормированном базисе'],
+        links: [{ label: 'YouTube · Mathematical Center in Akademgorodok: векторное произведение, свойства', url: 'https://www.youtube.com/watch?v=kH4PiNIGv4I' }, { label: 'YouTube · Валерий Волков: векторное произведение', url: 'https://www.youtube.com/watch?v=gJlNmmhj2qY' }],
       },
       {
         id: 'w02-d5',
@@ -171,6 +178,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [7],
         questions: ['смешанное произведение векторов, его геометрический смысл', 'алгебраические свойства смешанного произведения', 'вычисление смешанного произведения в ортонормированном базисе', 'условие компланарности трех векторов', 'вычисление длины отрезка, площадей параллелограмма и треугольника, объемов параллелепипеда и тетраэдра'],
+        links: [{ label: 'YouTube · Mathematical Center in Akademgorodok: смешанное произведение, свойства', url: 'https://www.youtube.com/watch?v=xKxNogx7pJI' }, { label: 'YouTube · Ульяна Половинкина: объём через смешанное произведение', url: 'https://www.youtube.com/watch?v=xtTBTWIRCzY' }],
       },
       {
         id: 'w02-d6',
@@ -196,6 +204,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [11],
         questions: ['эллипс, гипербола, парабола и их геометрические свойства'],
+        links: [{ label: 'YouTube · Математик МГУ: эллипс, гипербола, парабола', url: 'https://www.youtube.com/watch?v=qbGg3-kgSMA' }, { label: 'YouTube · Teach-in: Овчинников, лекция 8', url: 'https://www.youtube.com/watch?v=vaA21czIyIw' }],
       },
       {
         id: 'w03-d2',
@@ -205,6 +214,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [11],
         questions: ['общее уравнение линии второго порядка на плоскости'],
+        links: [{ label: 'YouTube · Мемория Высшая Математика: §31.1 к каноническому виду (параллельный перенос, полные квадраты)', url: 'https://www.youtube.com/watch?v=aso0L7l8qyQ' }, { label: 'YouTube · Михаил Рыбков: эллипс, канонический вид, чертёж', url: 'https://www.youtube.com/watch?v=Vg_ZrBIH4NY' }],
       },
       {
         id: 'w03-d3',
@@ -214,6 +224,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [24],
         questions: ['правило Лопиталя'],
+        links: [{ label: 'YouTube · Борис Трушин: правило Лопиталя (0/0, ∞/∞, условия)', url: 'https://www.youtube.com/watch?v=k-GRSf_8u3Y' }, { label: 'YouTube · N Eliseeva: сведение 0·∞, ∞−∞, 1^∞', url: 'https://www.youtube.com/watch?v=uV4JZQs9D-k' }, { label: 'YouTube · N Eliseeva: когда нельзя применять правило Лопиталя', url: 'https://www.youtube.com/watch?v=lJmJ36JRLKA' }],
       },
       {
         id: 'w03-d4',
@@ -223,6 +234,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [21],
         questions: ['дифференцирование функции заданной в параметрической форме', 'производные высших порядков'],
+        links: [{ label: 'YouTube · Валерий Волков: параметрическая функция, y′ и y″', url: 'https://www.youtube.com/watch?v=TZfAmS9eRFM' }, { label: 'YouTube · Валерий Волков: производные высших порядков', url: 'https://www.youtube.com/watch?v=laTXfQMGDUI' }],
       },
       {
         id: 'w03-d5',
@@ -232,6 +244,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [22],
         questions: ['дифференциал функции', 'применение дифференциалов к приближенным вычислениям', 'дифференциалы высших порядков'],
+        links: [{ label: 'YouTube · Валерий Волков: дифференциал функции', url: 'https://www.youtube.com/watch?v=WKZzfpGiHK4' }, { label: 'YouTube · Валерий Волков: приближённые вычисления', url: 'https://www.youtube.com/watch?v=euQUHSgcuHE' }, { label: 'YouTube · Валерий Волков: производная обратной функции', url: 'https://www.youtube.com/watch?v=hzNQ7j8GfmU' }],
       },
       {
         id: 'w03-d6',
@@ -258,6 +271,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [3],
         questions: ['понятие системы линейных уравнений порядка n', 'решение СЛАУ методом Крамера'],
+        links: [{ label: 'YouTube · Валерий Волков: формулы Крамера 3×3', url: 'https://www.youtube.com/watch?v=jWFt1d5XpoQ' }],
       },
       {
         id: 'w04-d2',
@@ -267,6 +281,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [4],
         questions: ['решение СЛАУ методом Гаусса'],
+        links: [{ label: 'YouTube · N Eliseeva: Гаусс, несовместная система', url: 'https://www.youtube.com/watch?v=j5TTx5HlKrI' }, { label: 'YouTube · N Eliseeva: Гаусс, общее решение', url: 'https://www.youtube.com/watch?v=geho9yQ8xCw' }],
       },
       {
         id: 'w04-d3',
@@ -276,6 +291,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [8],
         questions: ['способы задания уравнения прямой на плоскости'],
+        links: [{ label: 'YouTube · Mathematical Center in Akademgorodok: виды уравнений прямой', url: 'https://www.youtube.com/watch?v=UW3BkIRuoD4' }],
       },
       {
         id: 'w04-d4',
@@ -285,6 +301,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [8],
         questions: ['взаимное расположение прямых на плоскости', 'расстояние от точки до прямой'],
+        links: [{ label: 'YouTube · Мемория Высшая Математика: угол между прямыми', url: 'https://www.youtube.com/watch?v=7gQ2IVAgVkA' }, { label: 'YouTube · Валерий Волков: расстояние до прямой', url: 'https://www.youtube.com/watch?v=JWfwRQ7cko4' }],
       },
       {
         id: 'w04-d5',
@@ -292,6 +309,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Треугольник по координатам вершин: стороны, высота, медиана, углы, площадь',
         minutes: 60,
+        links: [{ label: 'YouTube · МатФак: треугольник по вершинам', url: 'https://www.youtube.com/watch?v=UCEQPcxyVeg' }, { label: 'YouTube · Данил Лебедев: стороны, высота, площадь', url: 'https://www.youtube.com/watch?v=b8KCfmhdEwI' }],
       },
       {
         id: 'w04-d6',
@@ -317,6 +335,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [10],
         questions: ['уравнения плоскостей'],
+        links: [{ label: 'YouTube · Mathematical Center in Akademgorodok: виды уравнений плоскости', url: 'https://www.youtube.com/watch?v=Ko1GJgrc0LE' }, { label: 'YouTube · N Eliseeva: угол между плоскостями', url: 'https://www.youtube.com/watch?v=vVY5YQ6qr_8' }],
       },
       {
         id: 'w05-d2',
@@ -326,6 +345,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [9],
         questions: ['способы задания уравнения прямой в пространстве', 'взаимное расположение прямых в пространстве', 'угол между двумя прямыми в пространстве'],
+        links: [{ label: 'YouTube · N Eliseeva: прямая в пространстве', url: 'https://www.youtube.com/watch?v=Yr_5FJChGJc' }, { label: 'YouTube · N Eliseeva: прямая как пересечение плоскостей', url: 'https://www.youtube.com/watch?v=2XvKVOwHJ9o' }],
       },
       {
         id: 'w05-d3',
@@ -335,6 +355,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [10],
         questions: ['взаимное расположение прямых и плоскостей', 'угол между прямой и плоскостью'],
+        links: [{ label: 'YouTube · N Eliseeva: угол между прямой и плоскостью', url: 'https://www.youtube.com/watch?v=V8NrBTKUask' }, { label: 'YouTube · N Eliseeva: прямая и плоскость, расположение', url: 'https://www.youtube.com/watch?v=JsUOL8vSQa4' }],
       },
       {
         id: 'w05-d4',
@@ -344,6 +365,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [10],
         questions: ['расстояние от точки до плоскости'],
+        links: [{ label: 'YouTube · N Eliseeva: расстояние до плоскости', url: 'https://www.youtube.com/watch?v=xJF0eQ_ZJb8' }, { label: 'YouTube · N Eliseeva: расстояние до прямой в пространстве', url: 'https://www.youtube.com/watch?v=ejlO3SosnOk' }],
       },
       {
         id: 'w05-d5',
@@ -377,6 +399,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [12],
         questions: ['понятие функции и способы её задания', 'числовые функции, график функции, способы задания', 'обратная функция, сложная функция, основные элементарные функции их свойства и графики'],
+        links: [{ label: 'YouTube · Видеоуроки математики: область определения функции (матанализ #4)', url: 'https://www.youtube.com/watch?v=yOfQMvzv1ms' }, { label: 'YouTube · Борис Трушин: обратная функция (матан #024)', url: 'https://www.youtube.com/watch?v=LQZa7vPkqqc' }],
       },
       {
         id: 'w06-d2',
@@ -386,6 +409,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [13],
         questions: ['числовые последовательности', 'предел последовательности'],
+        links: [{ label: 'YouTube · Борис Трушин: предел последовательности', url: 'https://www.youtube.com/watch?v=ZmwdHAhVsPM' }, { label: 'YouTube · Борис Трушин: супремум и инфимум', url: 'https://www.youtube.com/watch?v=JlL-Tno5zvA' }],
       },
       {
         id: 'w06-d3',
@@ -395,6 +419,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [14, 15],
         questions: ['предел функции в точке', 'односторонние пределы', 'предел функции при x → ∞', 'бесконечно большие функции', 'бесконечно малые функции', 'связь между функцией, ее пределом и б.м. функцией', 'основные теоремы о пределах'],
+        links: [{ label: 'YouTube · Борис Трушин: предел функции (по Коши и по Гейне)', url: 'https://www.youtube.com/watch?v=UzfAt6DoN3E' }, { label: 'YouTube · Борис Трушин: бесконечно малые и бесконечно большие функции', url: 'https://www.youtube.com/watch?v=L1Qn2LEweeI' }],
       },
       {
         id: 'w06-d4',
@@ -402,6 +427,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Неопределённости ∞/∞ и 0/0 с многочленами и корнями (деление на старшую степень, домножение на сопряжённое)',
         minutes: 60,
+        links: [{ label: 'YouTube · Математикс: неопределённости 0/0 и ∞/∞', url: 'https://www.youtube.com/watch?v=HN5EBX8wb_o' }, { label: 'YouTube · N Eliseeva: 0/0 с корнями', url: 'https://www.youtube.com/watch?v=hc1J_TWKwzo' }],
       },
       {
         id: 'w06-d5',
@@ -409,6 +435,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Неопределённости ∞−∞ и 0·∞; замена переменной в пределах',
         minutes: 60,
+        links: [{ label: 'YouTube · Валерий Волков: все виды неопределённостей', url: 'https://www.youtube.com/watch?v=XSN8LInRQVs' }, { label: 'YouTube · N Eliseeva: ∞−∞', url: 'https://www.youtube.com/watch?v=vRIqFX1BFSA' }, { label: 'YouTube · Другое Мнение: предел функции, метод замены', url: 'https://www.youtube.com/watch?v=nHdya_dOWto' }],
       },
       {
         id: 'w06-d6',
@@ -434,6 +461,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [16],
         questions: ['первый замечательный предел'],
+        links: [{ label: 'YouTube · Борис Трушин: первый замечательный предел (матан #028, сам предел с 21:44)', url: 'https://www.youtube.com/watch?v=DJN8jCmEYdE' }, { label: 'YouTube · Математик МГУ: первый и второй замечательные пределы', url: 'https://www.youtube.com/watch?v=u2o-Ll0tzMk' }],
       },
       {
         id: 'w07-d2',
@@ -443,6 +471,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [16],
         questions: ['второй замечательный предел'],
+        links: [{ label: 'YouTube · Борис Трушин: второй замечательный предел', url: 'https://www.youtube.com/watch?v=YzFKUOOGtgU' }, { label: 'YouTube · N Eliseeva: 1^∞ на примерах', url: 'https://www.youtube.com/watch?v=mc2MdJYn8ME' }],
       },
       {
         id: 'w07-d3',
@@ -452,6 +481,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [16],
         questions: ['эквивалентные б.м. функции'],
+        links: [{ label: 'YouTube · N Eliseeva: таблица эквивалентностей (вывод всех формул)', url: 'https://www.youtube.com/watch?v=dZnYYls2uwk' }, { label: 'YouTube · N Eliseeva: вычисление пределов через эквивалентности', url: 'https://www.youtube.com/watch?v=S5BVR8FBwNg' }],
       },
       {
         id: 'w07-d4',
@@ -461,6 +491,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [15],
         questions: ['признаки существования пределов'],
+        links: [{ label: 'YouTube · Борис Трушин: свойства пределов функции (матан #015)', url: 'https://www.youtube.com/watch?v=Nx2GqsolBQ0' }, { label: 'YouTube · Борис Трушин: теорема о двух милиционерах (матан #007)', url: 'https://www.youtube.com/watch?v=WTjfi-eqL7E' }, { label: 'YouTube · Борис Трушин: предел монотонной последовательности, теорема Вейерштрасса (матан #010)', url: 'https://www.youtube.com/watch?v=aL145agf47s' }],
       },
       {
         id: 'w07-d5',
@@ -468,6 +499,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Метод половинного деления (вопрос теории №11); повтор трудных пределов из журнала ошибок',
         minutes: 60,
+        links: [{ label: 'YouTube · Данил Лебедев: метод половинного деления', url: 'https://www.youtube.com/watch?v=BaLwroc_cbY' }],
       },
       {
         id: 'w07-d6',
@@ -493,6 +525,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [17],
         questions: ['непрерывные функции', 'основные теоремы о непрерывных функциях'],
+        links: [{ label: 'YouTube · Борис Трушин: непрерывность в точке', url: 'https://www.youtube.com/watch?v=nXUEw07DWkw' }, { label: 'YouTube · Борис Трушин: теоремы Вейерштрасса и Коши', url: 'https://www.youtube.com/watch?v=V7bU_F2_bfQ' }],
       },
       {
         id: 'w08-d2',
@@ -502,6 +535,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [17],
         questions: ['точки разрыва и их классификация'],
+        links: [{ label: 'YouTube · Валерий Волков: точки разрыва', url: 'https://www.youtube.com/watch?v=SOOf13H1oHw' }, { label: 'YouTube · Борис Трушин: классификация разрывов', url: 'https://www.youtube.com/watch?v=mxP1Ig2Ejvw' }],
       },
       {
         id: 'w08-d3',
@@ -509,6 +543,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Кусочно-заданные функции; непрерывность с параметром',
         minutes: 60,
+        links: [{ label: 'YouTube · Нина Икс: кусочно-заданная функция', url: 'https://www.youtube.com/watch?v=BSGP7UTf1_8' }, { label: 'YouTube · Точки Лагранжа: параметр и непрерывность', url: 'https://www.youtube.com/watch?v=tlrvtskxjhk' }],
       },
       {
         id: 'w08-d4',
@@ -548,6 +583,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [18],
         questions: ['задачи, приводящие к понятию производной', 'определение производной, ее механический и геометрический смысл'],
+        links: [{ label: 'YouTube · Борис Трушин: определение производной', url: 'https://www.youtube.com/watch?v=19H7-BBwMoQ' }, { label: 'YouTube · N Eliseeva: касательная и нормаль', url: 'https://www.youtube.com/watch?v=KLzq2TTZN34' }],
       },
       {
         id: 'w09-d2',
@@ -557,6 +593,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [18, 19],
         questions: ['правила вычисления производной функции', 'производные основных элементарных функций', 'таблица производных'],
+        links: [{ label: 'YouTube · Борис Трушин: правила дифференцирования', url: 'https://www.youtube.com/watch?v=9ch3wfuHYuE' }],
       },
       {
         id: 'w09-d3',
@@ -566,6 +603,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [19],
         questions: ['производная сложной и обратной функций'],
+        links: [{ label: 'YouTube · Борис Трушин: производная сложной функции', url: 'https://www.youtube.com/watch?v=SiTUVqIoO1o' }],
       },
       {
         id: 'w09-d4',
@@ -575,6 +613,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [23],
         questions: ['некоторые теоремы о дифференцируемых функциях'],
+        links: [{ label: 'YouTube · Борис Трушин: производная обратной функции', url: 'https://www.youtube.com/watch?v=qwofY4D96XA' }, { label: 'YouTube · Red Pen: дифференцируемость и непрерывность', url: 'https://www.youtube.com/watch?v=fzmnIRl6GbU' }],
       },
       {
         id: 'w09-d5',
@@ -607,6 +646,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [20],
         questions: ['логарифмическое дифференцирование'],
+        links: [{ label: 'YouTube · N Eliseeva: степенно-показательная функция', url: 'https://www.youtube.com/watch?v=6KTZMs5NM_c' }, { label: 'YouTube · Valery Volkov: два способа', url: 'https://www.youtube.com/watch?v=fGyGybCMhy4' }],
       },
       {
         id: 'w10-d2',
@@ -616,6 +656,7 @@ const CORE_WEEKS: Week[] = [
         minutes: 60,
         topics: [20],
         questions: ['производная неявной функции'],
+        links: [{ label: 'YouTube · Valery Volkov: производная неявной функции', url: 'https://www.youtube.com/watch?v=KBhlEe3HpzY' }],
       },
       {
         id: 'w10-d3',
@@ -623,6 +664,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Параметрическая функция и производные высших порядков (повтор)',
         minutes: 60,
+        links: [{ label: 'YouTube · Valery Volkov: производная параметрически заданной функции (1-й, 2-й, 3-й порядок)', url: 'https://www.youtube.com/watch?v=TZfAmS9eRFM' }, { label: 'YouTube · Борис Трушин: производные и дифференциалы высших порядков, формула Лейбница (матан #036)', url: 'https://www.youtube.com/watch?v=gfa9NLmrtuw' }],
       },
       {
         id: 'w10-d4',
@@ -630,6 +672,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Дифференциал: определение, геометрический смысл, приближённые вычисления',
         minutes: 60,
+        links: [{ label: 'YouTube · Борис Трушин: дифференциал', url: 'https://www.youtube.com/watch?v=dx_GkybeWjA' }, { label: 'YouTube · N Eliseeva: приближённые вычисления', url: 'https://www.youtube.com/watch?v=8y2UlUJ_1eg' }],
       },
       {
         id: 'w10-d5',
@@ -660,6 +703,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Теоремы Ферма, Ролля, Лагранжа, Коши: формулировки, условия, геометрический смысл; задачи на точку c',
         minutes: 60,
+        links: [{ label: 'YouTube · Борис Трушин: теоремы о среднем', url: 'https://www.youtube.com/watch?v=np09VlUmQDc' }],
       },
       {
         id: 'w11-d2',
@@ -667,6 +711,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Правило Лопиталя (повтор), связь с теоремой Коши; сложные случаи',
         minutes: 60,
+        links: [{ label: 'YouTube · Борис Трушин: правило Лопиталя', url: 'https://www.youtube.com/watch?v=k-GRSf_8u3Y' }, { label: 'YouTube · N Eliseeva: сложные неопределённости', url: 'https://www.youtube.com/watch?v=uV4JZQs9D-k' }],
       },
       {
         id: 'w11-d3',
@@ -674,6 +719,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Экстремум: необходимое и достаточное условия; интервалы монотонности',
         minutes: 60,
+        links: [{ label: 'YouTube · Борис Трушин: монотонность и экстремумы', url: 'https://www.youtube.com/watch?v=IodqPbmO2eQ' }],
       },
       {
         id: 'w11-d4',
@@ -681,6 +727,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Выпуклость и точки перегиба (вторая производная)',
         minutes: 60,
+        links: [{ label: 'YouTube · ИТМО, Правдин: выпуклость и перегибы', url: 'https://www.youtube.com/watch?v=H6_SbMi6_hg' }, { label: 'YouTube · Andrei Gradient: практика', url: 'https://www.youtube.com/watch?v=Okw0KbHttYk' }],
       },
       {
         id: 'w11-d5',
@@ -688,6 +735,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Асимптоты: вертикальные, горизонтальные, наклонные',
         minutes: 60,
+        links: [{ label: 'YouTube · ИТМО, Правдин: асимптоты', url: 'https://www.youtube.com/watch?v=32Zju09K3VM' }, { label: 'YouTube · Татьяна Зыкова: асимптоты и схема исследования', url: 'https://www.youtube.com/watch?v=yGu1V1D61DQ' }],
       },
       {
         id: 'w11-d6',
@@ -711,6 +759,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Полная схема исследования функции и построение графика (одна функция подробно)',
         minutes: 60,
+        links: [{ label: 'YouTube · Valery Volkov: общая схема исследования', url: 'https://www.youtube.com/watch?v=cD0k3TNjgmM' }],
       },
       {
         id: 'w12-d2',
@@ -718,6 +767,7 @@ const CORE_WEEKS: Week[] = [
         kind: 'study',
         title: 'Ещё две функции по схеме: дробно-рациональная и с корнем/экспонентой',
         minutes: 60,
+        links: [{ label: 'YouTube · Ильдар Калимуллин: дробно-рациональная', url: 'https://www.youtube.com/watch?v=9uUKVmWbigU' }, { label: 'YouTube · Ильдар Калимуллин: показательная', url: 'https://www.youtube.com/watch?v=Ak9KBthcv7M' }],
       },
       {
         id: 'w12-d3',
