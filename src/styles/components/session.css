@@ -108,3 +108,71 @@
     grid-column: 1;
   }
 }
+
+/* Ссылки на материалы занятия — строкой под пояснением, вне label */
+.session__links {
+  grid-column: 2;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 var(--spacing-md);
+  list-style: none;
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+}
+
+.session__link {
+  display: inline-flex;
+  align-items: center;
+  min-height: 2rem;
+  color: var(--color-block-b-text);
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
+}
+
+.session__link:hover {
+  color: var(--color-text);
+}
+
+.session--done .session__link {
+  color: var(--color-text-muted);
+}
+
+.today-card .session__links {
+  margin-block-start: var(--spacing-xs);
+}
+
+/* Вопросы рабочей программы под занятием: та же строка «- пункт;», что в самой программе */
+.session__program {
+  grid-column: 2;
+  display: grid;
+  gap: var(--spacing-xs);
+}
+
+.session__program-topics {
+  font-family: var(--font-family-mono);
+  font-size: var(--font-size-xs);
+  letter-spacing: 0.04em;
+  color: var(--color-block-a-text);
+}
+
+.session__questions {
+  display: grid;
+  gap: 0.125rem;
+  padding-inline-start: 1rem;
+  list-style: '– ';
+  font-size: var(--font-size-sm);
+  line-height: 1.45;
+  color: var(--color-text);
+}
+
+.session__question::marker {
+  color: var(--color-text-muted);
+}
+
+.session--done .session__questions {
+  color: var(--color-text-muted);
+}
+
+.today-card .session__program {
+  margin-block-start: var(--spacing-xs);
+}

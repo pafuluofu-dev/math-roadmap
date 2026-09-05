@@ -1,4 +1,4 @@
-import type { SessionKind } from '../data/plan'
+import type { SessionKind, SessionLink } from '../data/plan'
 import { fmtDate, fmtWeekday } from '../dates'
 
 export interface SessionItemProps {
@@ -8,6 +8,9 @@ export interface SessionItemProps {
   title: string
   minutes: number
   notes?: string
+  links?: SessionLink[]
+  topics?: number[]
+  questions?: string[]
   checked: boolean
   missed: boolean
   onToggle: (id: string) => void
@@ -22,7 +25,46 @@ const KIND_LABEL: Partial<Record<SessionKind | 'custom', string>> = {
   custom: 'второй круг',
 }
 
-export function SessionItem({ id, date, kind, title, minutes, notes, checked, missed, onToggle, onDelete }: SessionItemProps) {
+/** Ссылки на материалы занятия — вне label, чтобы клик по ссылке не переключал галочку */
+export function SessionLinks({ links }: { links?: SessionLink[] }) {
+  if (!links || links.length === 0) return null
+  return (
+    <ul className="session__links" aria-label="Материалы занятия">
+      {links.map((link) => (
+        <li key={link.url + link.label}>
+          <a className="session__link" href={link.url} target="_blank" rel="noopener noreferrer">
+            {link.label}
+            <span aria-hidden="true"> ↗</span>
+            <span className="visually-hidden"> (откроется в новой вкладке)</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  )
+}
+
+/** «Рассматриваемые вопросы» рабочей программы — списком под названием, как в самой программе */
+export function SessionQuestions({ topics, questions }: { topics?: number[]; questions?: string[] }) {
+  if (!questions || questions.length === 0) return null
+  return (
+    <div className="session__program">
+      {topics && topics.length > 0 && (
+        <p className="session__program-topics">
+          {topics.length === 1 ? 'Тема' : 'Темы'} программы {topics.join(', ')} · рассматриваемые вопросы
+        </p>
+      )}
+      <ul className="session__questions">
+        {questions.map((question) => (
+          <li className="session__question" key={question}>
+            {question}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )
+}
+
+export function SessionItem({ id, date, kind, title, minutes, notes, links, topics, questions, checked, missed, onToggle, onDelete }: SessionItemProps) {
   const noteId = notes ? `${id}-note` : undefined
 
   if (kind === 'rest') {
@@ -59,6 +101,8 @@ export function SessionItem({ id, date, kind, title, minutes, notes, checked, mi
           {notes}
         </p>
       )}
+      <SessionQuestions topics={topics} questions={questions} />
+      <SessionLinks links={links} />
       <p className="session__hours">
         <span className="session__hours-value">{checked ? 'сделано' : `${minutes} мин`}</span>
         {onDelete && !checked && (

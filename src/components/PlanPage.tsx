@@ -145,6 +145,9 @@ function WeekCard({ week, state, onToggleSession, onAddCustom, onDeleteCustom }:
               title={session.title}
               minutes={session.minutes}
               notes={session.notes}
+              links={session.links}
+              topics={session.topics}
+              questions={session.questions}
               checked={!!state.sessions[session.id]}
               missed={isMissed(session, state)}
               onToggle={onToggleSession}

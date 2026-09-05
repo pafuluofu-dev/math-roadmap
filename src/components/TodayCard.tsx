@@ -1,6 +1,7 @@
 import { fmtDate, fmtDateYear, fmtWeekday, todayISO } from '../dates'
 import { todayView } from '../progress'
 import type { AppState } from '../storage'
+import { SessionLinks, SessionQuestions } from './SessionItem'
 
 interface TodayCardProps {
   state: AppState
@@ -50,6 +51,8 @@ export function TodayCard({ state, onToggleSession }: TodayCardProps) {
             )}
           </p>
           {view.session.notes && <p className="today-card__note">{view.session.notes}</p>}
+          <SessionQuestions topics={view.session.topics} questions={view.session.questions} />
+          <SessionLinks links={view.session.links} />
           <div className="today-card__action">
             <input
               className="checkbox"
