@@ -123,9 +123,17 @@ $$\mathbf r_M = \frac{\mathbf r_A + \lambda \mathbf r_B}{1 + \lambda}$$
 
 При $\lambda = 1$ получается середина: каждая координата — полусумма координат концов.
 
-**Короткий счёт.** Для $\mathbf a = (1, -2, 4)$ и $\mathbf b = (0, 3, -1)$: $3\mathbf a = (3, -6, 12)$, $2\mathbf b = (0, 6, -2)$, значит $3\mathbf a - 2\mathbf b = (3, -12, 14)$.
+**Короткий счёт.** Для $\mathbf a = (1, -2, 4)$ и $\mathbf b = (0, 3, -1)$:
 
-**Параметр коллинеарности.** При каком $\lambda$ векторы $\mathbf a = (2, -3, \lambda)$ и $\mathbf b = (-4, 6, 10)$ коллинеарны? Из первых двух координат коэффициент пропорциональности определён: $-4 = -2 \cdot 2$ и $6 = -2 \cdot (-3)$, то есть $\mathbf b = -2\mathbf a$. Тогда $10 = -2\lambda$, откуда $\lambda = -5$. Проверка: $\mathbf a = (2, -3, -5)$, $-2\mathbf a = (-4, 6, 10) = \mathbf b$ ✓
+- $3\mathbf a = (3, -6, 12)$
+- $2\mathbf b = (0, 6, -2)$
+- значит $3\mathbf a - 2\mathbf b = (3, -12, 14)$
+
+**Параметр коллинеарности.** При каком $\lambda$ векторы $\mathbf a = (2, -3, \lambda)$ и $\mathbf b = (-4, 6, 10)$ коллинеарны?
+
+- из первых двух координат коэффициент пропорциональности определён: $-4 = -2 \cdot 2$ и $6 = -2 \cdot (-3)$, то есть $\mathbf b = -2\mathbf a$
+- тогда $10 = -2\lambda$, откуда $\lambda = -5$
+- проверка: $\mathbf a = (2, -3, -5)$, $-2\mathbf a = (-4, 6, 10) = \mathbf b$ ✓
 
 ### 6. Разобранный пример
 
@@ -141,7 +149,12 @@ $\Delta = 13 \ne 0$, значит векторы некомпланарны и �
 
 $$\begin{cases} \alpha + 2\gamma = 7 \\ 2\alpha + \beta = 4 \\ 3\beta + \gamma = 9 \end{cases}$$
 
-**Шаг 3. Решение.** Из первого уравнения $\alpha = 7 - 2\gamma$. Подстановка во второе: $2(7 - 2\gamma) + \beta = 4$, то есть $14 - 4\gamma + \beta = 4$, откуда $\beta = 4\gamma - 10$. Подстановка в третье: $3(4\gamma - 10) + \gamma = 9$, то есть $12\gamma - 30 + \gamma = 9$, значит $13\gamma = 39$ и $\gamma = 3$. Тогда $\beta = 12 - 10 = 2$, $\alpha = 7 - 6 = 1$.
+**Шаг 3. Решение.**
+
+1. Из первого уравнения $\alpha = 7 - 2\gamma$.
+2. Подстановка во второе: $2(7 - 2\gamma) + \beta = 4$, то есть $14 - 4\gamma + \beta = 4$, откуда $\beta = 4\gamma - 10$.
+3. Подстановка в третье: $3(4\gamma - 10) + \gamma = 9$, то есть $12\gamma - 30 + \gamma = 9$, значит $13\gamma = 39$ и $\gamma = 3$.
+4. Тогда $\beta = 12 - 10 = 2$, $\alpha = 7 - 6 = 1$.
 
 Коэффициент $13$ перед $\gamma$ — тот самый определитель $\Delta$: это не совпадение, а следствие правила Крамера.
 
@@ -301,7 +314,11 @@ $$\cos\alpha = \frac{2}{2\sqrt 2} = \frac{\sqrt 2}{2}, \qquad \cos\beta = \frac{
 
 **Проверка:** $\dfrac12 + \dfrac12 + 0 = 1$ ✓ Углы с осями: $\alpha = \beta = 45^\circ$, $\gamma = 90^\circ$ — вектор лежит в плоскости, параллельной $xOy$, что видно и по нулевой третьей координате.
 
-**Ещё один короткий счёт — подбор параметра.** При каком $\lambda$ векторы $\mathbf a = (\lambda, 3, -1)$ и $\mathbf b = (2, -\lambda, 4)$ перпендикулярны? Условие $(\mathbf a, \mathbf b) = 0$ даёт $2\lambda - 3\lambda - 4 = 0$, то есть $-\lambda = 4$ и $\lambda = -4$. Проверка: $\mathbf a = (-4, 3, -1)$, $\mathbf b = (2, 4, 4)$, произведение $-8 + 12 - 4 = 0$ ✓
+**Ещё один короткий счёт — подбор параметра.** При каком $\lambda$ векторы $\mathbf a = (\lambda, 3, -1)$ и $\mathbf b = (2, -\lambda, 4)$ перпендикулярны?
+
+- условие $(\mathbf a, \mathbf b) = 0$ даёт $2\lambda - 3\lambda - 4 = 0$
+- то есть $-\lambda = 4$ и $\lambda = -4$
+- проверка: $\mathbf a = (-4, 3, -1)$, $\mathbf b = (2, 4, 4)$, произведение $-8 + 12 - 4 = 0$ ✓
 
 **И работа силы.** Сила $\mathbf F = (3, 2, 1)$ перемещает точку из $M(1, 0, 2)$ в $N(2, 3, 4)$. Тогда $\mathbf s = \overrightarrow{MN} = (1, 3, 2)$ и $A = (\mathbf F, \mathbf s) = 3 + 6 + 2 = 11$ единиц работы.
 
@@ -384,7 +401,12 @@ $$S_{\parallel} = |[\mathbf a, \mathbf b]|, \qquad S_{\triangle} = \frac12\,|[\m
 
 $$[\mathbf a, \mathbf b] = \begin{vmatrix} \mathbf i & \mathbf j & \mathbf k \\ 2 & -1 & 3 \\ 1 & 4 & -2 \end{vmatrix} = \mathbf i\big((-1)(-2) - 3 \cdot 4\big) - \mathbf j\big(2 \cdot (-2) - 3 \cdot 1\big) + \mathbf k\big(2 \cdot 4 - (-1) \cdot 1\big)$$
 
-Поразрядно: $\mathbf i$-компонента $2 - 12 = -10$; $\mathbf j$-компонента $-(-4 - 3) = 7$; $\mathbf k$-компонента $8 + 1 = 9$. Итого $[\mathbf a, \mathbf b] = (-10, 7, 9)$.
+Поразрядно:
+
+- $\mathbf i$-компонента $2 - 12 = -10$
+- $\mathbf j$-компонента $-(-4 - 3) = 7$
+- $\mathbf k$-компонента $8 + 1 = 9$
+- итого $[\mathbf a, \mathbf b] = (-10, 7, 9)$
 
 **Бесплатная самопроверка.** Результат обязан быть перпендикулярен обоим исходным векторам — достаточно посчитать два скалярных произведения, оба должны дать ноль:
 
@@ -404,7 +426,12 @@ $$S = \frac12\sqrt{(-4)^2 + 8^2 + (-4)^2} = \frac12\sqrt{16 + 64 + 16} = \frac12
 
 **Проверка перпендикулярности:** $(-4) \cdot 1 + 8 \cdot 2 + (-4) \cdot 3 = -4 + 16 - 12 = 0$ ✓ и $(-4) \cdot 3 + 8 \cdot 2 + (-4) \cdot 1 = -12 + 16 - 4 = 0$ ✓
 
-**Независимая проверка через синус.** $|\overrightarrow{AB}| = |\overrightarrow{AC}| = \sqrt{1 + 4 + 9} = \sqrt{14}$, а $(\overrightarrow{AB}, \overrightarrow{AC}) = 3 + 4 + 3 = 10$, значит $\cos\varphi = \dfrac{10}{14} = \dfrac57$ и $\sin\varphi = \sqrt{1 - \dfrac{25}{49}} = \dfrac{2\sqrt 6}{7}$. Тогда $\dfrac12 |\overrightarrow{AB}||\overrightarrow{AC}|\sin\varphi = \dfrac12 \cdot 14 \cdot \dfrac{2\sqrt 6}{7} = 2\sqrt 6$ ✓ — тот же ответ.
+**Независимая проверка через синус.**
+
+- $|\overrightarrow{AB}| = |\overrightarrow{AC}| = \sqrt{1 + 4 + 9} = \sqrt{14}$
+- $(\overrightarrow{AB}, \overrightarrow{AC}) = 3 + 4 + 3 = 10$
+- значит $\cos\varphi = \dfrac{10}{14} = \dfrac57$ и $\sin\varphi = \sqrt{1 - \dfrac{25}{49}} = \dfrac{2\sqrt 6}{7}$
+- тогда $\dfrac12 |\overrightarrow{AB}||\overrightarrow{AC}|\sin\varphi = \dfrac12 \cdot 14 \cdot \dfrac{2\sqrt 6}{7} = 2\sqrt 6$ ✓ — тот же ответ
 
 ### 4. Смешанное произведение: определение, геометрический смысл, свойства
 
@@ -494,7 +521,13 @@ $$\begin{vmatrix} 1 & 2 & 3 \\ 2 & -1 & 1 \\ 5 & 0 & \lambda \end{vmatrix} = 1 \
 
 Условие $25 - 5\lambda = 0$ даёт $\lambda = 5$.
 
-**Проверка.** При $\lambda = 5$ вектор $\mathbf c = (5, 0, 5)$ обязан выражаться через $\mathbf a$ и $\mathbf b$. Из системы $\alpha\mathbf a + \beta\mathbf b = \mathbf c$ по второй координате $2\alpha - \beta = 0$, то есть $\beta = 2\alpha$; по первой $\alpha + 2\beta = 5\alpha = 5$, откуда $\alpha = 1$, $\beta = 2$; по третьей $3 \cdot 1 + 1 \cdot 2 = 5$ ✓ Значит $\mathbf c = \mathbf a + 2\mathbf b$ — векторы действительно компланарны.
+**Проверка.** При $\lambda = 5$ вектор $\mathbf c = (5, 0, 5)$ обязан выражаться через $\mathbf a$ и $\mathbf b$. Из системы $\alpha\mathbf a + \beta\mathbf b = \mathbf c$:
+
+- по второй координате $2\alpha - \beta = 0$, то есть $\beta = 2\alpha$
+- по первой $\alpha + 2\beta = 5\alpha = 5$, откуда $\alpha = 1$, $\beta = 2$
+- по третьей $3 \cdot 1 + 1 \cdot 2 = 5$ ✓
+
+Значит $\mathbf c = \mathbf a + 2\mathbf b$ — векторы действительно компланарны.
 
 ### 7. Типовые задачи темы 7
 

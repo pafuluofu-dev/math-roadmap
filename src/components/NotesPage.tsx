@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react'
 import { NOTES, type Note } from '../data/notes'
 import { Markdown } from './Markdown'
+import { NoteVideos } from './NoteVideos'
 
 export const noteGroupAnchor = (id: number) => `note-group-${id}`
 const noteTopicAnchor = (topic: number) => `note-topic-${topic}`
@@ -32,6 +33,18 @@ export function NotesPage() {
     const group = topic === null ? NOTES[0].id : groupOfTopic(topic)!.id
     return { group, topic, nonce: 0 }
   })
+
+  // Страница остаётся смонтированной при смене «#/notes/5» → «#/notes/18»,
+  // поэтому на хэш надо подписаться: иначе ссылка на тему сработает только при первом заходе
+  useEffect(() => {
+    const onHashChange = () => {
+      const topic = topicFromHash()
+      if (topic === null) return
+      setTarget({ group: groupOfTopic(topic)!.id, topic, nonce: Date.now() })
+    }
+    window.addEventListener('hashchange', onHashChange)
+    return () => window.removeEventListener('hashchange', onHashChange)
+  }, [])
 
   // Подвести к теме после того, как её группа раскрылась и отрисовалась
   useEffect(() => {
@@ -117,6 +130,7 @@ function NoteCard({ note, open, onOpen }: NoteCardProps) {
       {open && (
         <div className="note__body">
           <Markdown text={note.body} />
+          <NoteVideos topics={note.topics} />
         </div>
       )}
     </details>
