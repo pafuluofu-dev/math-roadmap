@@ -54,7 +54,9 @@ export function ChecksPage({ state, onSaveResult, onClearResult, onAddError, onT
   )
 }
 
-/** Задания проверки из банка: свёрнуты, ответ у каждого — под своей кнопкой. Ничего не сохраняет */
+/* Банк шире формата: в check.format записан формат самой контрольной (сколько задач берут на 60 минут),
+   а здесь лежат все задачи по теме — для тренировки. Свёрнуты, ответ у каждой под своей кнопкой.
+   Ничего не сохраняет. */
 function TestTasks({ checkId }: { checkId: string }) {
   const items = testsFor(checkId)
   // Не монтируем список (и не тянем KaTeX), пока задания не раскрыли
@@ -66,7 +68,7 @@ function TestTasks({ checkId }: { checkId: string }) {
   return (
     <details className="check-card__tasks-fold" onToggle={(event) => setOpened(event.currentTarget.open)}>
       <summary className="check-card__form-summary">
-        Открыть задания · {problems}
+        Открыть банк заданий · {problems}
         {theory > 0 && ` + ${theory} теории`}
       </summary>
       {opened && (
