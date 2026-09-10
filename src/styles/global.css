@@ -30,6 +30,7 @@
 @import './components/math.css';
 @import './components/test-content.css';
 @import './components/formulas.css';
+@import './components/notes.css';
 @import './utilities/checkbox.css';
 @import './utilities/link-button.css';
 @import './utilities/visually-hidden.css';

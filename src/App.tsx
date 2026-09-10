@@ -22,6 +22,8 @@ import { ROUTE_META, useRoute } from './router'
 
 // KaTeX весит ~300 КБ — тянем его только на страницы с формулами, чтобы галочки на плане открывались мгновенно
 const FormulasPage = lazy(() => import('./components/FormulasPage').then((module) => ({ default: module.FormulasPage })))
+// Конспекты — самый тяжёлый чанк (тексты всех тем плюс KaTeX), грузим только при заходе на страницу
+const NotesPage = lazy(() => import('./components/NotesPage').then((module) => ({ default: module.NotesPage })))
 
 export default function App() {
   const [state, setState] = useState<AppState>(loadState)
@@ -36,7 +38,7 @@ export default function App() {
     if (theme === 'light') document.documentElement.setAttribute('data-theme', 'light')
     else document.documentElement.removeAttribute('data-theme')
     saveTheme(theme)
-    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f7fafc' : '#081028')
+    document.querySelector('meta[name="theme-color"]')?.setAttribute('content', theme === 'light' ? '#f7f1e8' : '#241a12')
   }, [theme])
 
   useEffect(() => {
@@ -170,6 +172,11 @@ export default function App() {
         {route === 'formulas' && (
           <Suspense fallback={<p className="page-loading">Загружаю формулы…</p>}>
             <FormulasPage />
+          </Suspense>
+        )}
+        {route === 'notes' && (
+          <Suspense fallback={<p className="page-loading">Загружаю конспекты…</p>}>
+            <NotesPage />
           </Suspense>
         )}
       </div>

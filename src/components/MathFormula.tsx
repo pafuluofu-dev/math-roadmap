@@ -38,7 +38,8 @@ function renderMixed(text: string): string {
     .map((part) => {
       if (part.length > 4 && part.startsWith('$$') && part.endsWith('$$')) return renderTex(part.slice(2, -2), true)
       if (part.length > 2 && part.startsWith('$') && part.endsWith('$')) return renderTex(part.slice(1, -1), false)
-      return escapeHtml(part)
+      // Жирный размечаем уже после экранирования — в разметку попадают только наши теги
+      return escapeHtml(part).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
     })
     .join('')
 }
