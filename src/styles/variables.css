@@ -1,26 +1,28 @@
-/* Палитра DashDark X — как у «Маршрута verno/dev»: чернильно-синие фоны,
-   пурпурный primary с фирменным градиентом, циановый secondary.
-   Блок A = пурпур, блок B = циан, блок C = нейтральный.
-   Тема по умолчанию тёмная, светлая — по переключателю в шапке. */
+/* Палитра «Мука» — по мотивам лендинга пекарни: крем, шоколад, карамель.
+   Тёплые тона мягче для глаз на длинных сессиях, чем прежний чернильно-синий DashDark.
+   Блок A = карамель, блок B = хвойно-зелёный (второго акцента у пекарни нет, взят
+   гармоничный к карамели холодный оттенок), блок C = нейтральный.
+   Тема по умолчанию тёмная, светлая — по переключателю в шапке.
+   Все пары «текст/фон» проверены по WCAG 2.1: обычный текст ≥ 4.5, границы и акценты ≥ 3. */
 :root {
-  --color-background: #081028;
-  --color-surface: #0b1739;
-  --color-text: #ffffff;
-  --color-text-muted: #aeb9e1;
-  --color-border: #343b4f;
-  --color-block-a: #cb3cff;
-  --color-block-a-text: #e0b5ff;
-  --color-block-a-surface: #3b004d;
-  --color-block-b: #00c2ff;
-  --color-block-b-text: #b3ecff;
-  --color-block-b-surface: #004466;
-  --color-success: #14ca74;
-  --color-focus: #00c2ff;
+  --color-background: #241a12;
+  --color-surface: #32241a;
+  --color-text: #f7f1e8;
+  --color-text-muted: #c6b6a2;
+  --color-border: #4a382a;
+  --color-block-a: #e0a264;
+  --color-block-a-text: #f0c89a;
+  --color-block-a-surface: #4a3320;
+  --color-block-b: #6fb8ac;
+  --color-block-b-text: #a8d8cf;
+  --color-block-b-surface: #1e3f3a;
+  --color-success: #8cc07a;
+  --color-focus: #e0a264;
   --color-on-accent: #ffffff;
-  --color-border-input: #4a5568;
-  --gradient-primary: linear-gradient(128.49deg, #cb3cff 19.86%, #7f25fb 68.34%);
-  /* Для кнопок с белым текстом: сдвинут к фиолетовому, чтобы контраст ≥ 4.5 по всей длине */
-  --gradient-primary-strong: linear-gradient(128.49deg, #a531fd 19.86%, #7f25fb 68.34%);
+  --color-border-input: #97795d;
+  --gradient-primary: linear-gradient(128.49deg, #c08a4e 19.86%, #a06b33 68.34%);
+  /* Для кнопок с белым текстом: сдвинут к тёмной карамели, чтобы контраст ≥ 4.5 по всей длине */
+  --gradient-primary-strong: linear-gradient(128.49deg, #a06b33 19.86%, #8a5526 68.34%);
 
   --font-family-display: 'Mona Sans', 'Work Sans', system-ui, sans-serif;
   --font-family-primary: 'Mona Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
@@ -51,21 +53,21 @@
   --transition-fast: 150ms ease;
 }
 
-/* Светлая тема — по переключателю в шапке, те же оттенки на светлых нейтралах */
+/* Светлая тема — кремовый фон пекарни, шоколадный текст, карамельный акцент */
 :root[data-theme='light'] {
-  --color-background: #f7fafc;
-  --color-surface: #ffffff;
-  --color-text: #171923;
-  --color-text-muted: #4a5568;
-  --color-border: #d1dbf9;
-  --color-block-a: #a324cc;
-  --color-block-a-text: #7d1a99;
-  --color-block-a-surface: #f4e3ff;
-  --color-block-b: #177999;
-  --color-block-b-text: #135e80;
-  --color-block-b-surface: #e6f9ff;
-  --color-success: #0f9c5b;
-  --color-focus: #177999;
+  --color-background: #f7f1e8;
+  --color-surface: #fffdf9;
+  --color-text: #38291d;
+  --color-text-muted: #5c4a3a;
+  --color-border: #e2d5c2;
+  --color-block-a: #a06b33;
+  --color-block-a-text: #7c5024;
+  --color-block-a-surface: #f1e2ce;
+  --color-block-b: #2f6e68;
+  --color-block-b-text: #245852;
+  --color-block-b-surface: #dcede9;
+  --color-success: #42763a;
+  --color-focus: #a06b33;
   --color-on-accent: #ffffff;
-  --color-border-input: #7e89ac;
+  --color-border-input: #9c8a70;
 }
