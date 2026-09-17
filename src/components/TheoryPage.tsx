@@ -1,4 +1,5 @@
 import { THEORY_GROUPS, THEORY_QUESTIONS, THEORY_STATES, type TheoryState } from '../data/theory'
+import { PROGRAM_DOC } from '../data/resources'
 import type { AppState } from '../storage'
 
 interface TheoryPageProps {
@@ -29,6 +30,17 @@ export function TheoryPage({ state, onSetTheory }: TheoryPageProps) {
                 {group.title}
                 {group.tentative && <span className="badge badge--tentative">предположительно</span>}
               </h2>
+              {group.tentative && (
+                <p className="section-lead">
+                  Сверить догадки можно по первоисточнику:{' '}
+                  <a href={PROGRAM_DOC.url} target="_blank" rel="noopener noreferrer">
+                    рабочие программы по математике
+                    <span aria-hidden="true"> ↗</span>
+                    <span className="visually-hidden"> (PDF, откроется в новой вкладке)</span>
+                  </a>{' '}
+                  — там полные формулировки вопросов лекций 2026 и оценочные материалы программы 2025.
+                </p>
+              )}
             </div>
             <ol className="theory-list" start={start}>
               {questions.map((question, index) => {

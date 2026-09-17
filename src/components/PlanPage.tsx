@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { CHECKS } from '../data/checks'
 import { BLOCKS, PASS_THRESHOLD, WEEKS, type Block, type Week } from '../data/plan'
-import { RESOURCES } from '../data/resources'
+import { PROGRAM_DOC, RESOURCES } from '../data/resources'
 import { fmtRange, todayISO } from '../dates'
 import { blockProgress, isMissed, percentOf, weekProgress } from '../progress'
 import type { AppState } from '../storage'
@@ -245,6 +245,17 @@ function ResourcesSection() {
       <div className="page-section__header">
         <h2 id="resources-title">Материалы</h2>
       </div>
+      <p className="resources__source">
+        <a className="resources__source-link" href={PROGRAM_DOC.url} target="_blank" rel="noopener noreferrer">
+          {PROGRAM_DOC.title}
+          <span aria-hidden="true"> ↗</span>
+          <span className="visually-hidden"> (PDF, откроется в новой вкладке)</span>
+        </a>
+        <span className="resources__note">
+          {' '}
+          — PDF, {PROGRAM_DOC.pages} страниц: {PROGRAM_DOC.note}
+        </span>
+      </p>
       <ul className="resources">
         {RESOURCES.map((resource) => (
           <li className="resources__item" key={resource.title}>

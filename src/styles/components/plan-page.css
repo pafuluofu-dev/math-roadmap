@@ -109,6 +109,18 @@
   font-size: var(--font-size-md);
 }
 
+.resources__source {
+  margin-block-end: var(--spacing-sm);
+  padding-block-end: var(--spacing-sm);
+  border-block-end: var(--border-width) dotted var(--color-border);
+  font-size: var(--font-size-md);
+  max-width: 80ch;
+}
+
+.resources__source-link {
+  font-weight: 600;
+}
+
 .resources__note {
   color: var(--color-text-muted);
 }
