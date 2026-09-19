@@ -14,13 +14,21 @@
     margin: 15mm;
   }
 
-  /* Пока лист в DOM, печатается только он: всё остальное — навигация, карточки, формы — прячем */
-  body.is-printing {
+  /* Класс стоит на <html>: фон корня и его color-scheme: dark браузер красит на весь лист,
+     включая поля страницы, — без этого вокруг заданий выходили чёрные рамки */
+  html.is-printing {
+    background: #fff;
+    color: #000;
+    color-scheme: light;
+  }
+
+  html.is-printing body {
     background: #fff;
     color: #000;
   }
 
-  body.is-printing > :not(.print-sheet) {
+  /* Пока лист в DOM, печатается только он: всё остальное — навигация, карточки, формы — прячем */
+  html.is-printing body > :not(.print-sheet) {
     display: none !important;
   }
 

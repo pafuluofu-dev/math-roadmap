@@ -26,7 +26,7 @@ export function PrintSheet({ check, items, onDone }: PrintSheetProps) {
 
   useEffect(() => {
     let cancelled = false
-    document.body.classList.add('is-printing')
+    document.documentElement.classList.add('is-printing')
     window.addEventListener('afterprint', onDone)
 
     // Эффект идёт уже после коммита разметки. Замер размеров заставляет браузер сделать раскладку
@@ -40,7 +40,7 @@ export function PrintSheet({ check, items, onDone }: PrintSheetProps) {
     return () => {
       cancelled = true
       window.removeEventListener('afterprint', onDone)
-      document.body.classList.remove('is-printing')
+      document.documentElement.classList.remove('is-printing')
     }
   }, [onDone])
 
