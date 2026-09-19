@@ -8,6 +8,8 @@ import { ErrorLog } from './ErrorLog'
 
 // Список заданий тянет KaTeX (~300 КБ) — грузим отложенно, форма результата и журнал ошибок его не ждут
 const TestTasksList = lazy(() => import('./TestTasksList').then((module) => ({ default: module.TestTasksList })))
+// Лист для печати тоже с формулами — тот же отложенный чанк, монтируется только на время диалога печати
+const PrintSheet = lazy(() => import('./PrintSheet').then((module) => ({ default: module.PrintSheet })))
 
 interface ChecksPageProps {
   state: AppState
@@ -26,7 +28,8 @@ export function ChecksPage({ state, onSaveResult, onClearResult, onAddError, onT
         <h1 className="page-head__title">Проверки и пробные экзамены</h1>
         <p className="page-head__lead">
           У каждой проверки есть задания с ответами: сначала решаете, потом открываете ответ и сами ставите баллы 0–100. Автопроверки нет — она
-          ненадёжна для математики. Темы проверок ниже {PASS_THRESHOLD} % — кандидаты во «второй круг» резерва.
+          ненадёжна для математики. Темы проверок ниже {PASS_THRESHOLD} % — кандидаты во «второй круг» резерва. Любую проверку можно распечатать
+          листом без ответов — в PDF или на принтер.
         </p>
       </header>
       <section className="page-section" aria-labelledby="checks-title">
@@ -93,6 +96,9 @@ function CheckCard({ check, result, onSaveResult, onClearResult }: CheckCardProp
   const statusModifier = result ? (passed ? 'badge--passed' : 'badge--failed') : 'badge--pending'
   const [score, setScore] = useState(result ? String(result.score) : '')
   const [note, setNote] = useState(result?.note ?? '')
+  // Пока лист в DOM, кнопка заблокирована: второй клик во время открытого диалога печати ни к чему
+  const [printing, setPrinting] = useState(false)
+  const items = testsFor(check.id)
   const scoreId = `${check.id}-score`
   const noteId = `${check.id}-noteinput`
 
@@ -113,6 +119,19 @@ function CheckCard({ check, result, onSaveResult, onClearResult }: CheckCardProp
       </h3>
       <p className="check-card__scope">{check.scope}</p>
       <TestTasks checkId={check.id} />
+      {items.length > 0 && (
+        <p className="check-card__actions">
+          <button type="button" className="button" disabled={printing} onClick={() => setPrinting(true)}>
+            {printing ? 'Готовлю лист…' : 'Распечатать задания'}
+          </button>
+          <span className="check-card__actions-hint">без ответов, в PDF или на принтер</span>
+        </p>
+      )}
+      {printing && (
+        <Suspense fallback={null}>
+          <PrintSheet check={check} items={items} onDone={() => setPrinting(false)} />
+        </Suspense>
+      )}
       {result && (
         <p className="check-card__result">
           <span className="check-card__score">
