@@ -6,8 +6,8 @@ import { NoteVideos } from './NoteVideos'
 export const noteGroupAnchor = (id: number) => `note-group-${id}`
 const noteTopicAnchor = (topic: number) => `note-topic-${topic}`
 
-/** Все темы 1–24 по порядку — для полосы быстрого перехода */
-const ALL_TOPICS = NOTES.flatMap((note) => note.topics).sort((a, b) => a - b)
+/** Все темы 1–24 по порядку — для полосы быстрого перехода; практикум повторяет тему конспекта, поэтому без дублей */
+const ALL_TOPICS = [...new Set(NOTES.flatMap((note) => note.topics))].sort((a, b) => a - b)
 
 function groupOfTopic(topic: number): Note | undefined {
   return NOTES.find((note) => note.topics.includes(topic))
@@ -123,7 +123,7 @@ function NoteCard({ note, open, onOpen }: NoteCardProps) {
       }}
     >
       <summary className="note__summary">
-        <span className="note__topics">Темы {first === last ? first : `${first}–${last}`}</span>
+        <span className="note__topics">{note.label ?? `Темы ${first === last ? first : `${first}–${last}`}`}</span>
         <span className="note__title">{note.title}</span>
         <span className="note__reading">{minutes} мин</span>
       </summary>

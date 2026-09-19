@@ -7,12 +7,15 @@ import group4 from './notes/4-functions-limits.md?raw'
 import group5 from './notes/5-infinitesimals-continuity.md?raw'
 import group6 from './notes/6-derivative.md?raw'
 import group7 from './notes/7-differential-lhopital.md?raw'
+import practice8 from './notes/8-second-limit-problems.md?raw'
 
 export interface Note {
   id: number
   title: string
   /** Номера тем программы, которые закрывает конспект */
   topics: number[]
+  /** Подпись вместо «Темы N–M» — у практикумов, которые не закрывают тему, а тренируют её */
+  label?: string
   /** Markdown-подмножество: ## / ### / абзацы / списки / > / таблицы / --- / $…$ */
   body: string
 }
@@ -25,4 +28,5 @@ export const NOTES: Note[] = [
   { id: 5, title: 'Бесконечно малые, замечательные пределы, непрерывность', topics: [15, 16, 17], body: group5 },
   { id: 6, title: 'Производная: определение и техника дифференцирования', topics: [18, 19, 20, 21], body: group6 },
   { id: 7, title: 'Дифференциал, теоремы о среднем и правило Лопиталя', topics: [22, 23, 24], body: group7 },
+  { id: 8, title: 'Второй замечательный предел: семь задач с решениями', topics: [16], label: 'Практикум · тема 16', body: practice8 },
 ]
