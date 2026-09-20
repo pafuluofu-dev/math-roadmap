@@ -23,6 +23,7 @@ export function AppNav({ route, state, theme, onToggleTheme }: AppNavProps) {
     { route: 'formulas', label: 'Формулы' },
     { route: 'notes', label: 'Конспекты' },
     { route: 'notebook', label: 'Заметки' },
+    { route: 'tree', label: 'Дерево' },
   ]
 
   const listRef = useRef<HTMLUListElement>(null)

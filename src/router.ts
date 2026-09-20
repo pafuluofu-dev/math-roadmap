@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export type Route = 'home' | 'plan' | 'checks' | 'theory' | 'formulas' | 'notes' | 'notebook'
+export type Route = 'home' | 'plan' | 'checks' | 'theory' | 'formulas' | 'notes' | 'notebook' | 'tree'
 
 export const ROUTE_META: Record<Route, { hash: string; title: string }> = {
   home: { hash: '#/', title: 'Маршрут: математика' },
@@ -10,6 +10,7 @@ export const ROUTE_META: Record<Route, { hash: string; title: string }> = {
   formulas: { hash: '#/formulas', title: 'Формулы — Маршрут: математика' },
   notes: { hash: '#/notes', title: 'Конспекты — Маршрут: математика' },
   notebook: { hash: '#/notebook', title: 'Заметки — Маршрут: математика' },
+  tree: { hash: '#/tree', title: 'Дерево — Маршрут: математика' },
 }
 
 function parseHash(hash: string): Route {
@@ -22,6 +23,7 @@ function parseHash(hash: string): Route {
   if (hash.startsWith(ROUTE_META.notebook.hash)) return 'notebook'
   // «#/notes/12» — та же страница с раскрытой темой, поэтому startsWith, а не равенство
   if (hash.startsWith(ROUTE_META.notes.hash)) return 'notes'
+  if (hash.startsWith(ROUTE_META.tree.hash)) return 'tree'
   return 'home'
 }
 

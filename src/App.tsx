@@ -28,6 +28,8 @@ const FormulasPage = lazy(() => import('./components/FormulasPage').then((module
 const NotesPage = lazy(() => import('./components/NotesPage').then((module) => ({ default: module.NotesPage })))
 // Заметки владельца — тот же KaTeX и разбор разметки, что у конспектов
 const NotebookPage = lazy(() => import('./components/NotebookPage').then((module) => ({ default: module.NotebookPage })))
+// Дерево нужно не каждый день, а тянет генератор SVG — пусть грузится своим чанком
+const TreePage = lazy(() => import('./components/TreePage').then((module) => ({ default: module.TreePage })))
 
 export default function App() {
   const [state, setState] = useState<AppState>(loadState)
@@ -200,6 +202,11 @@ export default function App() {
         {route === 'notebook' && (
           <Suspense fallback={<p className="page-loading">Загружаю заметки…</p>}>
             <NotebookPage notes={state.notes} onSave={saveNote} onDelete={deleteNote} />
+          </Suspense>
+        )}
+        {route === 'tree' && (
+          <Suspense fallback={<p className="page-loading">Загружаю дерево…</p>}>
+            <TreePage state={state} />
           </Suspense>
         )}
       </div>
