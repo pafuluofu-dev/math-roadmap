@@ -1,6 +1,19 @@
-import { ALL_SESSIONS, BLOCKS, WEEKS, type BlockId, type Session, type SessionKind, type SessionLink, type Week } from './data/plan'
+import { WEEKS, type BlockId, type Session, type SessionKind, type SessionLink } from './data/plan'
 import { todayISO } from './dates'
+import { applyEdits, type EffectivePlan, type PlanEdits, type PlanWeek } from './planEdits'
 import type { AppState, CustomSession, ErrorEntry } from './storage'
+
+let cachedEdits: PlanEdits | undefined
+let cachedPlan: EffectivePlan | undefined
+
+/** Итоговый план для состояния: исходные недели плюс правки владельца. Пересчёт только при смене объекта правок — страницы зовут это на каждом рендере */
+export function planOf(state: AppState): EffectivePlan {
+  if (!cachedPlan || cachedEdits !== state.planEdits) {
+    cachedEdits = state.planEdits
+    cachedPlan = applyEdits(WEEKS, state.planEdits)
+  }
+  return cachedPlan
+}
 
 /** Отдых — событие без галочки, в прогресс не входит */
 export function isCountable(session: Session): boolean {
@@ -33,18 +46,27 @@ function tally(sessions: Session[], custom: CustomSession[], doneMap: Record<str
   }
 }
 
-export function weekProgress(week: Week, state: AppState): Progress {
-  return tally(week.sessions, state.custom.filter((c) => c.week === week.n), state.sessions)
+/* «Второй круг» привязан к исходному номеру недели (baseN), а не к позиционному:
+   после перестановок и удалений позиционный номер плывёт, а добавленные занятия должны остаться на месте */
+export function weekProgress(week: PlanWeek, state: AppState): Progress {
+  return tally(week.sessions, state.custom.filter((c) => c.week === week.baseN), state.sessions)
 }
 
 export function blockProgress(blockId: BlockId, state: AppState): Progress {
-  const weekNumbers = BLOCKS.find((b) => b.id === blockId)?.weeks ?? []
-  const sessions = WEEKS.filter((w) => weekNumbers.includes(w.n)).flatMap((w) => w.sessions)
+  const weeks = planOf(state).weeks.filter((w) => w.block === blockId)
+  const weekNumbers = weeks.flatMap((w) => (w.baseN === undefined ? [] : [w.baseN]))
+  const sessions = weeks.flatMap((w) => w.sessions)
   return tally(sessions, state.custom.filter((c) => weekNumbers.includes(c.week)), state.sessions)
 }
 
+/** Занятия второго круга из недель, которые ещё есть в плане: удалённую неделю не видно, и в счёт она не идёт */
+function liveCustom(state: AppState): CustomSession[] {
+  const live = new Set(planOf(state).weeks.flatMap((week) => (week.baseN === undefined ? [] : [week.baseN])))
+  return state.custom.filter((entry) => live.has(entry.week))
+}
+
 export function overallProgress(state: AppState): Progress {
-  return tally(ALL_SESSIONS, state.custom, state.sessions)
+  return tally(planOf(state).sessions, liveCustom(state), state.sessions)
 }
 
 /** Занятие в карточке «Сегодня»: плановое или добавленное во «второй круг» */
@@ -73,8 +95,8 @@ export interface TodayView {
 export function todayView(state: AppState): TodayView {
   const today = todayISO()
   const countable: TodayItem[] = [
-    ...ALL_SESSIONS.filter(isCountable),
-    ...state.custom.map((c) => ({ id: c.id, date: c.date, kind: 'custom' as const, title: c.title, minutes: c.minutes })),
+    ...planOf(state).sessions.filter(isCountable),
+    ...liveCustom(state).map((c) => ({ id: c.id, date: c.date, kind: 'custom' as const, title: c.title, minutes: c.minutes })),
   ].sort((a, b) => a.date.localeCompare(b.date))
   const ofToday = countable.filter((s) => s.date === today)
   const unfinishedToday = ofToday.find((s) => !state.sessions[s.id])
@@ -105,9 +127,9 @@ export function dueRepeats(errors: ErrorEntry[]): DueRepeat[] {
 }
 
 /** Неделя, в которую попадает сегодняшняя дата */
-export function currentWeek(): Week | undefined {
+export function currentWeek(state: AppState): PlanWeek | undefined {
   const today = todayISO()
-  return WEEKS.find((w) => w.from <= today && today <= w.to)
+  return planOf(state).weeks.find((w) => w.from <= today && today <= w.to)
 }
 
 /** Занятие пропущено: дата прошла, галочки нет */

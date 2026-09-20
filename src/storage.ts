@@ -1,5 +1,7 @@
 import { SEED_NOTES, type UserNote } from './data/notebook'
+import type { BlockId, SessionKind, SessionLink } from './data/plan'
 import type { TheoryState } from './data/theory'
+import { EMPTY_EDITS, type FolderFields, type NodeFields, type PlanEdits, type PlanLayout } from './planEdits'
 
 export type { UserNote } from './data/notebook'
 
@@ -48,6 +50,8 @@ export interface AppState {
   custom: CustomSession[]
   /** Свои заметки владельца — страница «Заметки» */
   notes: UserNote[]
+  /** Правки плана: наложение поверх src/data/plan.ts, см. planEdits.ts */
+  planEdits: PlanEdits
 }
 
 export const EMPTY_STATE: AppState = {
@@ -57,6 +61,7 @@ export const EMPTY_STATE: AppState = {
   errors: [],
   custom: [],
   notes: SEED_NOTES,
+  planEdits: EMPTY_EDITS,
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -140,6 +145,105 @@ function sanitizeNotes(raw: unknown): UserNote[] {
     }))
 }
 
+const BLOCK_IDS: readonly string[] = ['A', 'B', 'C']
+const SESSION_KINDS: readonly string[] = ['study', 'check', 'exam', 'diagnostic', 'rest']
+
+function isStringArray(value: unknown): value is string[] {
+  return Array.isArray(value) && value.every((item) => typeof item === 'string')
+}
+
+/** Патч недели: берём только поля известных типов, остальное отбрасываем */
+function folderPatch(raw: unknown): Partial<FolderFields> | undefined {
+  if (!isRecord(raw)) return undefined
+  const out: Partial<FolderFields> = {}
+  if (typeof raw.block === 'string' && BLOCK_IDS.includes(raw.block)) out.block = raw.block as BlockId
+  if (typeof raw.from === 'string') out.from = raw.from
+  if (typeof raw.to === 'string') out.to = raw.to
+  if (typeof raw.focus === 'string') out.focus = raw.focus
+  if (typeof raw.note === 'string') out.note = raw.note
+  return out
+}
+
+function nodePatch(raw: unknown): Partial<NodeFields> | undefined {
+  if (!isRecord(raw)) return undefined
+  const out: Partial<NodeFields> = {}
+  if (typeof raw.date === 'string') out.date = raw.date
+  if (typeof raw.kind === 'string' && SESSION_KINDS.includes(raw.kind)) out.kind = raw.kind as SessionKind
+  if (typeof raw.title === 'string') out.title = raw.title
+  if (typeof raw.minutes === 'number' && Number.isFinite(raw.minutes)) out.minutes = raw.minutes
+  if (typeof raw.notes === 'string') out.notes = raw.notes
+  if (Array.isArray(raw.links)) {
+    out.links = raw.links.filter((link): link is SessionLink => isRecord(link) && typeof link.label === 'string' && typeof link.url === 'string')
+  }
+  if (Array.isArray(raw.topics)) out.topics = raw.topics.filter((topic): topic is number => typeof topic === 'number')
+  if (isStringArray(raw.questions)) out.questions = raw.questions
+  return out
+}
+
+function isFolderFields(patch: Partial<FolderFields>): patch is FolderFields {
+  return !!patch.block && typeof patch.from === 'string' && typeof patch.to === 'string' && typeof patch.focus === 'string'
+}
+
+function isNodeFields(patch: Partial<NodeFields>): patch is NodeFields {
+  return typeof patch.date === 'string' && !!patch.kind && typeof patch.title === 'string' && typeof patch.minutes === 'number'
+}
+
+function recordOf<T>(raw: Record<string, unknown>, parse: (value: unknown, key: string) => T | undefined): Record<string, T> {
+  const out: Record<string, T> = {}
+  for (const [key, value] of Object.entries(raw)) {
+    const parsed = parse(value, key)
+    if (parsed !== undefined) out[key] = parsed
+  }
+  return out
+}
+
+function sanitizeLayout(raw: unknown): PlanLayout | null {
+  if (!isRecord(raw) || !Array.isArray(raw.folders)) return null
+  const folders: PlanLayout['folders'] = []
+  for (const folder of raw.folders) {
+    if (!isRecord(folder) || typeof folder.id !== 'string' || !Array.isArray(folder.nodes)) continue
+    folders.push({ id: folder.id, nodes: folder.nodes.filter((id): id is string => typeof id === 'string') })
+  }
+  return { folders }
+}
+
+/* Копии без поля правок (до редактора) читаются как «правок нет». Сломанная форма любого поля —
+   тоже «правок нет»: с полусохранённым наложением план разъедется хуже, чем с исходным. */
+export function sanitizePlanEdits(raw: unknown): PlanEdits {
+  if (raw === undefined) return EMPTY_EDITS
+  if (!isRecord(raw)) return EMPTY_EDITS
+  const { layout, folders, nodes, addedFolders, addedNodes, deleted } = raw
+  const recordOrMissing = (value: unknown) => value === undefined || isRecord(value)
+  if (
+    !(layout === undefined || layout === null || isRecord(layout)) ||
+    !recordOrMissing(folders) ||
+    !recordOrMissing(nodes) ||
+    !recordOrMissing(addedFolders) ||
+    !recordOrMissing(addedNodes) ||
+    !(deleted === undefined || Array.isArray(deleted))
+  ) {
+    return EMPTY_EDITS
+  }
+  return {
+    layout: sanitizeLayout(layout),
+    folders: isRecord(folders) ? recordOf(folders, folderPatch) : {},
+    nodes: isRecord(nodes) ? recordOf(nodes, nodePatch) : {},
+    addedFolders: isRecord(addedFolders)
+      ? recordOf(addedFolders, (value, id) => {
+          const fields = folderPatch(value)
+          return fields && isFolderFields(fields) ? { ...fields, id } : undefined
+        })
+      : {},
+    addedNodes: isRecord(addedNodes)
+      ? recordOf(addedNodes, (value, id) => {
+          const fields = nodePatch(value)
+          return fields && isNodeFields(fields) ? { ...fields, id } : undefined
+        })
+      : {},
+    deleted: Array.isArray(deleted) ? deleted.filter((id): id is string => typeof id === 'string') : [],
+  }
+}
+
 export function sanitizeState(raw: unknown): AppState {
   if (!isRecord(raw)) return EMPTY_STATE
   return {
@@ -149,6 +253,7 @@ export function sanitizeState(raw: unknown): AppState {
     errors: sanitizeErrors(raw.errors),
     custom: sanitizeCustom(raw.custom),
     notes: sanitizeNotes(raw.notes),
+    planEdits: sanitizePlanEdits(raw.planEdits),
   }
 }
 

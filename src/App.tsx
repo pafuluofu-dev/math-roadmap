@@ -13,6 +13,7 @@ import {
   type UserNote,
 } from './storage'
 import type { TheoryState } from './data/theory'
+import { hasEdits, type PlanEdits } from './planEdits'
 import { AppNav } from './components/AppNav'
 import { OverallProgress } from './components/OverallProgress'
 import { HomePage } from './components/HomePage'
@@ -129,6 +130,9 @@ export default function App() {
 
   const deleteNote = (id: string) => setState((previous) => ({ ...previous, notes: previous.notes.filter((entry) => entry.id !== id) }))
 
+  // Редактор плана передаёт чистую операцию над правками — так две быстрые правки не затирают друг друга
+  const editPlan = (edit: (edits: PlanEdits) => PlanEdits) => setState((previous) => ({ ...previous, planEdits: edit(previous.planEdits) }))
+
   const exportState = () => JSON.stringify({ v: 1, ...state }, null, 2)
 
   const importState = (raw: string): boolean => {
@@ -144,7 +148,8 @@ export default function App() {
           next.errors.length +
           next.custom.length +
           // Заметки считаются, только если поле есть в файле: иначе это стартовые, а не содержимое копии
-          (Array.isArray((parsed as { notes?: unknown }).notes) ? next.notes.length : 0) >
+          (Array.isArray((parsed as { notes?: unknown }).notes) ? next.notes.length : 0) +
+          (hasEdits(next.planEdits) ? 1 : 0) >
         0
       if (!meaningful && JSON.stringify(next) === JSON.stringify(EMPTY_STATE) && JSON.stringify(parsed) !== JSON.stringify({ v: 1, ...EMPTY_STATE })) {
         return false
@@ -169,7 +174,7 @@ export default function App() {
           <HomePage state={state} onToggleSession={toggleSession} onToggleRepeat={toggleRepeat} onExport={exportState} onImport={importState} />
         )}
         {route === 'plan' && (
-          <PlanPage state={state} onToggleSession={toggleSession} onAddCustom={addCustom} onDeleteCustom={deleteCustom} />
+          <PlanPage state={state} onToggleSession={toggleSession} onAddCustom={addCustom} onDeleteCustom={deleteCustom} onEditPlan={editPlan} />
         )}
         {route === 'checks' && (
           <ChecksPage
@@ -204,7 +209,10 @@ export default function App() {
           План — повторение тем 1–24 первого семестра «Математики» (РУТ (МИИТ), программа 2026) до возвращения из академотпуска 9 февраля 2027. Порог любой
           проверки — 80 %.
         </p>
-        <p>Галочки, результаты проверок, журнал ошибок и заметки хранятся в этом браузере (localStorage). Для переноса между телефоном и ноутбуком — экспорт и импорт на обзоре.</p>
+        <p>
+          Галочки, результаты проверок, журнал ошибок, заметки и правки плана хранятся в этом браузере (localStorage). Для переноса между телефоном и ноутбуком —
+          экспорт и импорт на обзоре.
+        </p>
       </footer>
     </div>
   )

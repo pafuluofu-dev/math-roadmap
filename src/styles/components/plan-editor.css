@@ -1,0 +1,156 @@
+/* Редактор плана: панель режима над списком, ряды инструментов у недель и занятий, формы недели и занятия.
+   Вне режима из этого рендерится только кнопка «Редактировать план» — остальное появляется по нажатию. */
+
+.plan-editor {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-sm) var(--spacing-md);
+}
+
+.plan-editor__hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* Подсказка режима обмена — на всю ширину, чтобы не терялась среди кнопок */
+.plan-editor__notice {
+  flex: 1 1 100%;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--spacing-xs);
+  font-size: var(--font-size-sm);
+  color: var(--color-block-a-text);
+}
+
+/* Ряд кнопок-инструментов у недели (под заголовком) и у занятия (внизу карточки) */
+.edit-tools {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-xs);
+}
+
+.edit-tools--folder {
+  padding: 0 0.875rem 0.625rem;
+}
+
+.edit-tools--node {
+  grid-column: 2;
+}
+
+/* У отдыха карточка одноколоночная */
+.edit-tools--rest {
+  grid-column: 1;
+}
+
+/* Зона нажатия не меньше 2rem, как у .link-button; иконка читается по aria-label */
+.edit-tools__button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2rem;
+  min-height: 2rem;
+  padding: 0.25rem 0.5rem;
+  background: none;
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-md);
+  font-family: var(--font-family-mono);
+  font-size: 0.75rem;
+  line-height: 1;
+  color: var(--color-text-muted);
+  cursor: pointer;
+  transition: border-color var(--transition-fast), color var(--transition-fast);
+}
+
+.edit-tools__button:hover {
+  color: var(--color-text);
+  border-color: var(--color-text-muted);
+}
+
+.edit-tools__button[aria-pressed='true'] {
+  color: var(--color-block-a-text);
+  background: var(--color-block-a-surface);
+  border-color: var(--color-block-a);
+}
+
+.edit-tools__button:disabled {
+  color: var(--color-border);
+  border-color: var(--color-border);
+  cursor: not-allowed;
+}
+
+/* Формы недели и занятия — на тех же полях, что .reserve-form */
+.folder-editor,
+.node-editor__form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: end;
+  gap: var(--spacing-sm) var(--spacing-md);
+  padding: 0.625rem 0.875rem 0.875rem;
+}
+
+.folder-editor {
+  border-block-end: var(--border-width) solid var(--color-border);
+}
+
+/* Форма новой недели стоит внизу блока сама по себе — ей нужна своя карточка */
+.folder-editor--new {
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border);
+  border-radius: var(--radius-lg);
+}
+
+.node-editor {
+  list-style: none;
+  border-block-start: var(--border-width) solid var(--color-border);
+}
+
+.node-editor:first-child {
+  border-block-start: 0;
+}
+
+.folder-editor__field,
+.node-editor__field {
+  display: grid;
+  gap: var(--spacing-xs);
+}
+
+.folder-editor__field--grow,
+.node-editor__field--grow {
+  flex: 1 1 16rem;
+}
+
+.folder-editor__field--wide,
+.node-editor__field--wide {
+  flex: 1 1 100%;
+}
+
+.folder-editor__label,
+.node-editor__label {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+.folder-editor__input,
+.node-editor__input {
+  min-height: 2.25rem;
+  width: 100%;
+  padding: var(--spacing-xs) 0.625rem;
+  background: var(--color-surface);
+  border: var(--border-width) solid var(--color-border-input);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  resize: vertical;
+}
+
+.folder-editor__actions,
+.node-editor__actions {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.weeks__add {
+  display: flex;
+}

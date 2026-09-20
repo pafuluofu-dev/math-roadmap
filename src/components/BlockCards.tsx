@@ -1,6 +1,6 @@
-import { BLOCKS, WEEKS, type Block } from '../data/plan'
+import { BLOCKS, type Block } from '../data/plan'
 import { fmtHours, fmtRange } from '../dates'
-import { blockProgress, percentOf } from '../progress'
+import { blockProgress, percentOf, planOf } from '../progress'
 import type { AppState } from '../storage'
 import { ROUTE_META } from '../router'
 
@@ -25,12 +25,14 @@ export function BlockCards({ state }: BlockCardsProps) {
         {BLOCKS.map((block) => {
           const progress = blockProgress(block.id, state)
           const percent = percentOf(progress)
-          const first = WEEKS.find((week) => week.n === block.weeks[0])
-          const last = WEEKS.find((week) => week.n === block.weeks[block.weeks.length - 1])
+          // Недели блока — по итоговому плану: владелец мог переставить, добавить или удалить
+          const weeks = planOf(state).weeks.filter((week) => week.block === block.id)
+          const first = weeks[0]
+          const last = weeks[weeks.length - 1]
           return (
             <article className={`block-card block-card--${block.id.toLowerCase()}`} key={block.id}>
               <p className="eyebrow">
-                Блок {block.id} · недели {block.weeks[0]}–{block.weeks[block.weeks.length - 1]} · ≈{block.hours} ч
+                Блок {block.id} · {first && last ? `недели ${first.n}–${last.n}` : 'нет недель'} · ≈{block.hours} ч
               </p>
               <h3 className="block-card__title">
                 <a href={ROUTE_META.plan.hash}>{block.title}</a>
