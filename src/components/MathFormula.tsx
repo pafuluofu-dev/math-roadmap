@@ -14,7 +14,8 @@ interface MathTextProps {
   className?: string
 }
 
-/** Смешанный текст с формулами. Только для строк из исходников (src/data) — никогда для пользовательского ввода */
+/** Смешанный текст с формулами. Годится и для заметок владельца: текст экранируется, KaTeX работает без trust —
+    \href, \url и \includegraphics не выполняются, в разметку попадают только наши теги */
 export function MathText({ text, as: Tag = 'span', className }: MathTextProps) {
   const html = useMemo(() => renderMixed(text), [text])
   return <Tag className={className} dangerouslySetInnerHTML={{ __html: html }} />
@@ -31,15 +32,26 @@ export function renderTex(tex: string, displayMode: boolean): string {
 
 // Сначала $$...$$, потом одиночные $...$ (без переносов строки, чтобы не съесть текст между двумя ценами)
 const SPLIT = /(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g
+// Жирный может обнимать формулу: «**Считаем $AB$**» — поэтому его режем раньше формул
+const BOLD = /(\*\*[^*]+?\*\*)/g
 
 function renderMixed(text: string): string {
+  return text
+    .split(BOLD)
+    .map((part) =>
+      part.length > 4 && part.startsWith('**') && part.endsWith('**') ? `<strong>${renderMath(part.slice(2, -2))}</strong>` : renderMath(part),
+    )
+    .join('')
+}
+
+/** Формулы через KaTeX, всё остальное экранируется — в разметку попадают только наши теги */
+function renderMath(text: string): string {
   return text
     .split(SPLIT)
     .map((part) => {
       if (part.length > 4 && part.startsWith('$$') && part.endsWith('$$')) return renderTex(part.slice(2, -2), true)
       if (part.length > 2 && part.startsWith('$') && part.endsWith('$')) return renderTex(part.slice(1, -1), false)
-      // Жирный размечаем уже после экранирования — в разметку попадают только наши теги
-      return escapeHtml(part).replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+      return escapeHtml(part)
     })
     .join('')
 }

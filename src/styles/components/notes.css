@@ -234,9 +234,11 @@
 }
 
 .note-videos__link {
-  /* Ссылка целиком кликабельна, высота строки даёт комфортную зону нажатия */
-  display: inline-flex;
-  align-items: center;
+  /* Ссылка целиком кликабельна, отступы дают комфортную зону нажатия */
+  /* inline-block, а не inline-flex: у многострочной ссылки стрелка остаётся за последним словом, а не улетает к правому краю */
+  display: inline-block;
+  padding-block: 0.3125rem;
+  line-height: 1.4;
   min-height: 2.25rem;
   color: var(--color-block-b-text);
   text-decoration: underline;

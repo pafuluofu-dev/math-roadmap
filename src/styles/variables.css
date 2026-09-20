@@ -7,6 +7,10 @@
 :root {
   --color-background: #241a12;
   --color-surface: #32241a;
+  /* Подложки «Сегодня» и карточек блоков: в тёмной теме — та же поверхность, в светлой — мягкий тон блока */
+  --color-surface-a: #32241a;
+  --color-surface-b: #32241a;
+  --color-surface-c: #32241a;
   --color-text: #f7f1e8;
   --color-text-muted: #c6b6a2;
   --color-border: #4a382a;
@@ -19,6 +23,8 @@
   --color-success: #8cc07a;
   --color-focus: #e0a264;
   --color-on-accent: #ffffff;
+  /* Номер экзамена на заливке цветом блока: заливки в тёмной теме светлые, белым по ним не прочитать */
+  --color-on-block: #241a12;
   --color-border-input: #97795d;
   --gradient-primary: linear-gradient(128.49deg, #c08a4e 19.86%, #a06b33 68.34%);
   /* Для кнопок с белым текстом: сдвинут к тёмной карамели, чтобы контраст ≥ 4.5 по всей длине */
@@ -28,7 +34,7 @@
   --font-family-primary: 'Mona Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-family-mono: 'Work Sans', system-ui, sans-serif;
 
-  --font-size-xs: 0.6875rem;
+  --font-size-xs: 0.75rem;
   --font-size-sm: 0.8125rem;
   --font-size-md: 0.875rem;
   --font-size-base: 1rem;
@@ -53,13 +59,18 @@
   --transition-fast: 150ms ease;
 }
 
-/* Светлая тема — кремовый фон пекарни, шоколадный текст, карамельный акцент */
+/* Светлая тема — кремовый фон пекарни, шоколадный текст, карамельный акцент.
+   Поверхности не белые, а тёплый крем; «Сегодня» и карточки блоков — на мягких подложках
+   своего цвета (карамель, хвоя, песок). Все пары «текст/фон» ≥ 4.5, рамки и акценты ≥ 3. */
 :root[data-theme='light'] {
-  --color-background: #f7f1e8;
-  --color-surface: #fffdf9;
+  --color-background: #f6efe4;
+  --color-surface: #fefaf3;
+  --color-surface-a: #f8ecdb;
+  --color-surface-b: #e8f0ed;
+  --color-surface-c: #f3ece2;
   --color-text: #38291d;
   --color-text-muted: #5c4a3a;
-  --color-border: #e2d5c2;
+  --color-border: #e5d9c7;
   --color-block-a: #a06b33;
   --color-block-a-text: #7c5024;
   --color-block-a-surface: #f1e2ce;
@@ -69,5 +80,6 @@
   --color-success: #42763a;
   --color-focus: #a06b33;
   --color-on-accent: #ffffff;
-  --color-border-input: #9c8a70;
+  --color-on-block: #ffffff;
+  --color-border-input: #937f64;
 }
