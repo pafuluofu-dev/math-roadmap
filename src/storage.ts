@@ -1,4 +1,7 @@
+import { SEED_NOTES, type UserNote } from './data/notebook'
 import type { TheoryState } from './data/theory'
+
+export type { UserNote } from './data/notebook'
 
 const STATE_KEY = 'math-roadmap:v1'
 const THEME_KEY = 'math-roadmap:theme'
@@ -43,6 +46,8 @@ export interface AppState {
   theory: Record<string, TheoryState>
   errors: ErrorEntry[]
   custom: CustomSession[]
+  /** Свои заметки владельца — страница «Заметки» */
+  notes: UserNote[]
 }
 
 export const EMPTY_STATE: AppState = {
@@ -51,6 +56,7 @@ export const EMPTY_STATE: AppState = {
   theory: {},
   errors: [],
   custom: [],
+  notes: SEED_NOTES,
 }
 
 function isRecord(value: unknown): value is Record<string, unknown> {
@@ -118,6 +124,22 @@ function sanitizeCustom(raw: unknown): CustomSession[] {
   )
 }
 
+/* Поля не было в первых копиях: undefined — не «пусто», а «ещё не заводили», и тогда даём стартовые заметки.
+   Пустой массив — владелец всё удалил, назад не возвращаем. */
+function sanitizeNotes(raw: unknown): UserNote[] {
+  if (raw === undefined) return SEED_NOTES
+  if (!Array.isArray(raw)) return []
+  return raw
+    .filter((entry): entry is UserNote => isRecord(entry) && typeof entry.id === 'string' && typeof entry.title === 'string' && typeof entry.body === 'string')
+    .map((entry) => ({
+      id: entry.id,
+      title: entry.title,
+      body: entry.body,
+      createdAt: typeof entry.createdAt === 'string' ? entry.createdAt : '',
+      updatedAt: typeof entry.updatedAt === 'string' ? entry.updatedAt : '',
+    }))
+}
+
 export function sanitizeState(raw: unknown): AppState {
   if (!isRecord(raw)) return EMPTY_STATE
   return {
@@ -126,6 +148,7 @@ export function sanitizeState(raw: unknown): AppState {
     theory: sanitizeTheory(raw.theory),
     errors: sanitizeErrors(raw.errors),
     custom: sanitizeCustom(raw.custom),
+    notes: sanitizeNotes(raw.notes),
   }
 }
 

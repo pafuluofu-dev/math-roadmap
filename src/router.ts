@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 
-export type Route = 'home' | 'plan' | 'checks' | 'theory' | 'formulas' | 'notes'
+export type Route = 'home' | 'plan' | 'checks' | 'theory' | 'formulas' | 'notes' | 'notebook'
 
 export const ROUTE_META: Record<Route, { hash: string; title: string }> = {
   home: { hash: '#/', title: 'Маршрут: математика' },
@@ -9,6 +9,7 @@ export const ROUTE_META: Record<Route, { hash: string; title: string }> = {
   theory: { hash: '#/theory', title: 'Теория — Маршрут: математика' },
   formulas: { hash: '#/formulas', title: 'Формулы — Маршрут: математика' },
   notes: { hash: '#/notes', title: 'Конспекты — Маршрут: математика' },
+  notebook: { hash: '#/notebook', title: 'Заметки — Маршрут: математика' },
 }
 
 function parseHash(hash: string): Route {
@@ -17,6 +18,8 @@ function parseHash(hash: string): Route {
   if (hash.startsWith(ROUTE_META.theory.hash)) return 'theory'
   // «#/formulas/12» — та же страница с раскрытой темой, поэтому startsWith, а не равенство
   if (hash.startsWith(ROUTE_META.formulas.hash)) return 'formulas'
+  // Раньше конспектов: «#/notebook» начинается с «#/notes»
+  if (hash.startsWith(ROUTE_META.notebook.hash)) return 'notebook'
   // «#/notes/12» — та же страница с раскрытой темой, поэтому startsWith, а не равенство
   if (hash.startsWith(ROUTE_META.notes.hash)) return 'notes'
   return 'home'

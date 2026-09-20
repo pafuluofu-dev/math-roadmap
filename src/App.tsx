@@ -10,6 +10,7 @@ import {
   type AppState,
   type CheckResult,
   type Theme,
+  type UserNote,
 } from './storage'
 import type { TheoryState } from './data/theory'
 import { AppNav } from './components/AppNav'
@@ -24,6 +25,8 @@ import { ROUTE_META, useRoute } from './router'
 const FormulasPage = lazy(() => import('./components/FormulasPage').then((module) => ({ default: module.FormulasPage })))
 // Конспекты — самый тяжёлый чанк (тексты всех тем плюс KaTeX), грузим только при заходе на страницу
 const NotesPage = lazy(() => import('./components/NotesPage').then((module) => ({ default: module.NotesPage })))
+// Заметки владельца — тот же KaTeX и разбор разметки, что у конспектов
+const NotebookPage = lazy(() => import('./components/NotebookPage').then((module) => ({ default: module.NotebookPage })))
 
 export default function App() {
   const [state, setState] = useState<AppState>(loadState)
@@ -118,6 +121,14 @@ export default function App() {
       return { ...previous, sessions, custom: previous.custom.filter((entry) => entry.id !== id) }
     })
 
+  const saveNote = (note: UserNote) =>
+    setState((previous) => ({
+      ...previous,
+      notes: previous.notes.some((entry) => entry.id === note.id) ? previous.notes.map((entry) => (entry.id === note.id ? note : entry)) : [note, ...previous.notes],
+    }))
+
+  const deleteNote = (id: string) => setState((previous) => ({ ...previous, notes: previous.notes.filter((entry) => entry.id !== id) }))
+
   const exportState = () => JSON.stringify({ v: 1, ...state }, null, 2)
 
   const importState = (raw: string): boolean => {
@@ -131,7 +142,9 @@ export default function App() {
           Object.keys(next.checks).length +
           Object.keys(next.theory).length +
           next.errors.length +
-          next.custom.length >
+          next.custom.length +
+          // Заметки считаются, только если поле есть в файле: иначе это стартовые, а не содержимое копии
+          (Array.isArray((parsed as { notes?: unknown }).notes) ? next.notes.length : 0) >
         0
       if (!meaningful && JSON.stringify(next) === JSON.stringify(EMPTY_STATE) && JSON.stringify(parsed) !== JSON.stringify({ v: 1, ...EMPTY_STATE })) {
         return false
@@ -179,6 +192,11 @@ export default function App() {
             <NotesPage />
           </Suspense>
         )}
+        {route === 'notebook' && (
+          <Suspense fallback={<p className="page-loading">Загружаю заметки…</p>}>
+            <NotebookPage notes={state.notes} onSave={saveNote} onDelete={deleteNote} />
+          </Suspense>
+        )}
       </div>
       {route !== 'home' && <OverallProgress state={state} />}
       <footer className="site-footer">
@@ -186,7 +204,7 @@ export default function App() {
           План — повторение тем 1–24 первого семестра «Математики» (РУТ (МИИТ), программа 2026) до возвращения из академотпуска 9 февраля 2027. Порог любой
           проверки — 80 %.
         </p>
-        <p>Галочки, результаты проверок и журнал ошибок хранятся в этом браузере (localStorage). Для переноса между телефоном и ноутбуком — экспорт и импорт на обзоре.</p>
+        <p>Галочки, результаты проверок, журнал ошибок и заметки хранятся в этом браузере (localStorage). Для переноса между телефоном и ноутбуком — экспорт и импорт на обзоре.</p>
       </footer>
     </div>
   )
