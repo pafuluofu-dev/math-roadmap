@@ -21,6 +21,9 @@
   --color-block-b-text: #a8d8cf;
   --color-block-b-surface: #1e3f3a;
   --color-success: #8cc07a;
+  /* Шкала отметок заданий: зелёный — success, жёлтый и красный своих в палитре не было */
+  --color-warn: #e3b75f;
+  --color-danger: #e8847c;
   --color-focus: #e0a264;
   --color-on-accent: #ffffff;
   /* Номер экзамена на заливке цветом блока: заливки в тёмной теме светлые, белым по ним не прочитать */
@@ -78,6 +81,8 @@
   --color-block-b-text: #245852;
   --color-block-b-surface: #dcede9;
   --color-success: #42763a;
+  --color-warn: #8a6508;
+  --color-danger: #b23a34;
   --color-focus: #a06b33;
   --color-on-accent: #ffffff;
   --color-on-block: #ffffff;
