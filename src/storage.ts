@@ -55,6 +55,8 @@ export interface AppState {
   custom: CustomSession[]
   /** Свои заметки владельца — страница «Заметки» */
   notes: UserNote[]
+  /** id уже показанных стартовых подборок: по ним новые доезжают, а удалённые не воскресают */
+  seenSeeds: string[]
   /** Правки плана: наложение поверх src/data/plan.ts, см. planEdits.ts */
   planEdits: PlanEdits
 }
@@ -67,6 +69,7 @@ export const EMPTY_STATE: AppState = {
   errors: [],
   custom: [],
   notes: SEED_NOTES,
+  seenSeeds: SEED_NOTES.map((seed) => seed.id),
   planEdits: EMPTY_EDITS,
 }
 
@@ -135,10 +138,9 @@ function sanitizeCustom(raw: unknown): CustomSession[] {
   )
 }
 
-/* Поля не было в первых копиях: undefined — не «пусто», а «ещё не заводили», и тогда даём стартовые заметки.
+/* Здесь только чистка: стартовые подборки добавляет withFreshSeeds, чтобы новые доходили и до заведённого состояния.
    Пустой массив — владелец всё удалил, назад не возвращаем. */
 function sanitizeNotes(raw: unknown): UserNote[] {
-  if (raw === undefined) return SEED_NOTES
   if (!Array.isArray(raw)) return []
   return raw
     .filter((entry): entry is UserNote => isRecord(entry) && typeof entry.id === 'string' && typeof entry.title === 'string' && typeof entry.body === 'string')
@@ -149,6 +151,23 @@ function sanitizeNotes(raw: unknown): UserNote[] {
       createdAt: typeof entry.createdAt === 'string' ? entry.createdAt : '',
       updatedAt: typeof entry.updatedAt === 'string' ? entry.updatedAt : '',
     }))
+}
+
+/* Копии до 21.09.2026 этого поля не знают. Если заметки в них уже заведены, значит показана была
+   единственная подборка, существовавшая на тот день; если нет — не показано ещё ничего. */
+const LEGACY_SEEN_SEEDS: readonly string[] = ['seed-second-limit']
+
+function sanitizeSeenSeeds(raw: unknown, notesRaw: unknown): string[] {
+  if (isStringArray(raw)) return raw
+  return notesRaw === undefined ? [] : [...LEGACY_SEEN_SEEDS]
+}
+
+/* Подборку показываем ровно один раз: она встаёт в начало списка, её id уходит в seenSeeds,
+   и дальше это обычная заметка — её можно править и удалять, назад она не вернётся. */
+function withFreshSeeds(notes: UserNote[], seenSeeds: string[]): Pick<AppState, 'notes' | 'seenSeeds'> {
+  const fresh = SEED_NOTES.filter((seed) => !seenSeeds.includes(seed.id))
+  if (fresh.length === 0) return { notes, seenSeeds }
+  return { notes: [...fresh, ...notes], seenSeeds: [...seenSeeds, ...fresh.map((seed) => seed.id)] }
 }
 
 const BLOCK_IDS: readonly string[] = ['A', 'B', 'C']
@@ -266,7 +285,7 @@ export function sanitizeState(raw: unknown): AppState {
     theory: sanitizeTheory(raw.theory),
     errors: sanitizeErrors(raw.errors),
     custom: sanitizeCustom(raw.custom),
-    notes: sanitizeNotes(raw.notes),
+    ...withFreshSeeds(sanitizeNotes(raw.notes), sanitizeSeenSeeds(raw.seenSeeds, raw.notes)),
     planEdits: sanitizePlanEdits(raw.planEdits),
   }
 }

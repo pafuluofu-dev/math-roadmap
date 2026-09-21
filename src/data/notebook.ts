@@ -1,4 +1,6 @@
 import secondLimit from './notebook/second-limit-problems.md?raw'
+import parabolaFocus from './notebook/parabola-focus-problems.md?raw'
+import infinityDifference from './notebook/infinity-difference-problems.md?raw'
 
 /** Своя заметка владельца: Markdown-подмножество конспектов плюс формулы $…$ и $$…$$ */
 export interface UserNote {
@@ -11,8 +13,9 @@ export interface UserNote {
   updatedAt: string
 }
 
-/* Стартовые заметки: попадают в состояние один раз, когда поля notes ещё нет.
-   Дальше это обычные заметки — их можно править и удалять, назад они не вернутся. */
+/* Стартовые подборки: каждая попадает в состояние один раз — по списку seenSeeds в storage.ts,
+   поэтому новая доезжает и до заведённого состояния. Дальше это обычные заметки:
+   их можно править и удалять, назад они не вернутся. */
 export const SEED_NOTES: UserNote[] = [
   {
     id: 'seed-second-limit',
@@ -20,6 +23,20 @@ export const SEED_NOTES: UserNote[] = [
     body: secondLimit,
     createdAt: '2026-09-19',
     updatedAt: '2026-09-19',
+  },
+  {
+    id: 'seed-parabola-focus',
+    title: 'Парабола: фокус, директриса, фокальный радиус — семь задач с решениями',
+    body: parabolaFocus,
+    createdAt: '2026-09-21',
+    updatedAt: '2026-09-21',
+  },
+  {
+    id: 'seed-infinity-difference',
+    title: 'Неопределённость ∞ − ∞: три задачи с решениями',
+    body: infinityDifference,
+    createdAt: '2026-09-21',
+    updatedAt: '2026-09-21',
   },
 ]
 
