@@ -9,6 +9,7 @@ import {
   saveTheme,
   type AppState,
   type CheckResult,
+  type TaskMark,
   type Theme,
   type UserNote,
 } from './storage'
@@ -69,6 +70,16 @@ export default function App() {
     setState((previous) => {
       const result: CheckResult = { score, note, at: todayISO() }
       return { ...previous, checks: { ...previous.checks, [id]: result } }
+    })
+
+  /* Отметка задания проверки: повторный клик по активной кнопке снимает её (mark === null).
+     Ключ — «<id проверки>:<id задания>», см. taskMarkKey в TestTasksList */
+  const markTask = (key: string, mark: TaskMark | null) =>
+    setState((previous) => {
+      const taskMarks = { ...previous.taskMarks }
+      if (mark === null) delete taskMarks[key]
+      else taskMarks[key] = mark
+      return { ...previous, taskMarks }
     })
 
   const clearCheckResult = (id: string) =>
@@ -146,6 +157,7 @@ export default function App() {
       const meaningful =
         Object.keys(next.sessions).length +
           Object.keys(next.checks).length +
+          Object.keys(next.taskMarks).length +
           Object.keys(next.theory).length +
           next.errors.length +
           next.custom.length +
@@ -183,6 +195,7 @@ export default function App() {
             state={state}
             onSaveResult={saveCheckResult}
             onClearResult={clearCheckResult}
+            onMarkTask={markTask}
             onAddError={addError}
             onToggleRepeat={toggleRepeat}
             onDeleteError={deleteError}

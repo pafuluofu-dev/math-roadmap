@@ -10,6 +10,9 @@ const THEME_KEY = 'math-roadmap:theme'
 
 export type Theme = 'dark' | 'light'
 
+/** Отметка задания проверки: получилось / наполовину / не получилось */
+export type TaskMark = 'ok' | 'half' | 'fail'
+
 /** Результат проверки или пробного экзамена */
 export interface CheckResult {
   /** Баллы 0–100 */
@@ -44,6 +47,8 @@ export interface AppState {
   sessions: Record<string, string>
   /** id проверки → результат */
   checks: Record<string, CheckResult>
+  /** «<id проверки>:<id задания>» → отметка; из отмеченных складывается балл проверки */
+  taskMarks: Record<string, TaskMark>
   /** id вопроса теории → 0 «не знаю» / 1 «формулировка» / 2 «могу объяснить» */
   theory: Record<string, TheoryState>
   errors: ErrorEntry[]
@@ -57,6 +62,7 @@ export interface AppState {
 export const EMPTY_STATE: AppState = {
   sessions: {},
   checks: {},
+  taskMarks: {},
   theory: {},
   errors: [],
   custom: [],
@@ -244,11 +250,19 @@ export function sanitizePlanEdits(raw: unknown): PlanEdits {
   }
 }
 
+function sanitizeTaskMarks(raw: unknown): Record<string, TaskMark> {
+  if (!isRecord(raw)) return {}
+  const out: Record<string, TaskMark> = {}
+  for (const [key, mark] of Object.entries(raw)) if (mark === 'ok' || mark === 'half' || mark === 'fail') out[key] = mark
+  return out
+}
+
 export function sanitizeState(raw: unknown): AppState {
   if (!isRecord(raw)) return EMPTY_STATE
   return {
     sessions: sanitizeSessions(raw.sessions),
     checks: sanitizeChecks(raw.checks),
+    taskMarks: sanitizeTaskMarks(raw.taskMarks),
     theory: sanitizeTheory(raw.theory),
     errors: sanitizeErrors(raw.errors),
     custom: sanitizeCustom(raw.custom),
